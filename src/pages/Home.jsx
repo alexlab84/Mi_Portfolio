@@ -9,6 +9,7 @@ export default function Home() {
     <Container
       maxWidth="md"
       sx={{
+        marginTop: { xs: "300px", sm: "64px" },
         textAlign: "center",
          // Más espacio para centrar mejor
         display: "flex",
@@ -39,7 +40,7 @@ export default function Home() {
           Hola, soy{" "}
           <span style={{ color: "#80DEEA", fontWeight: "bold" }}>
             <Typewriter
-              words={["Alejandra Sánchez", "Desarrolladora Web", "Fullstack Developer"]}
+              words={["Alejandra Sánchez", "Web Developer", "Fullstack Developer"]}
               loop={true}
               cursor
               cursorStyle="|"
@@ -68,18 +69,27 @@ export default function Home() {
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5, delay: 1 }}
       >
-        <Box mt={4}>
+         <Box
+          mt={4}
+          sx={{
+            display: "flex",
+            flexDirection: { xs: "column", sm: "row" }, // Alineación en columna en móviles, en fila en pantallas grandes
+            gap: 2, // Espacio entre los botones
+            alignItems: "center", // Centrado de los botones
+            justifyContent: "center", // Centrado de los botones
+          }}
+        >
           <Button
             variant="contained"
             color="primary"
             component={Link}
             to="/projects"
             sx={{
-              mr: 2,
-              transition: "transform 0.3s",
               padding: "12px 24px", // Aumenta el tamaño del botón
-      fontSize: "1.1rem",
+              fontSize: "1.1rem",
+              transition: "transform 0.3s",
               "&:hover": { transform: "scale(1.1)" },
+              width: { xs: "100%", sm: "auto" }, // En móviles ocupa el 100% del ancho
             }}
           >
             Ver Proyectos
@@ -90,9 +100,10 @@ export default function Home() {
             component={Link}
             sx={{
               padding: "12px 24px", // Aumenta el tamaño del botón
-      fontSize: "1.1rem",
+              fontSize: "1.1rem",
               transition: "transform 0.3s",
               "&:hover": { transform: "scale(1.1)" },
+              width: { xs: "100%", sm: "auto" }, // En móviles ocupa el 100% del ancho
             }}
           >
             Contáctame
