@@ -1,7 +1,8 @@
-import { Container, Typography, Button, Box } from "@mui/material";
+import { Avatar, Container, Typography, Button, Box } from "@mui/material";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { Typewriter } from "react-simple-typewriter";
+import avatarImage from "../assets/avatar.png"; // Importa la imagen de tu avatar
 
 export default function Home() {
   return (
@@ -9,7 +10,7 @@ export default function Home() {
       maxWidth="md"
       sx={{
         textAlign: "center",
-        mt: 12, // Más espacio para centrar mejor
+         // Más espacio para centrar mejor
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -17,6 +18,17 @@ export default function Home() {
         height: "80vh", // Ocupa casi toda la pantalla
       }}
     >
+      <motion.div
+        initial={{ opacity: 0, y: -30 }} // Comienza más arriba y con opacidad 0
+        animate={{ opacity: 1, y: 0 }} // Se mueve hacia su posición original
+        transition={{ duration: 1 }}
+      >
+      <Avatar
+        src={avatarImage} // Aquí puedes poner la ruta de tu imagen
+        alt="Foto de perfil"
+        sx={{ width: 120, height: 120, mb: 2, marginBottom:10}} // Tamaño y margen inferior
+      />
+      </motion.div>
       {/* Animación del texto principal */}
       <motion.div
         initial={{ opacity: 0, y: -20 }}
