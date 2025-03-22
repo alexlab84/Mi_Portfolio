@@ -13,7 +13,7 @@ import materialuiIcon from "../assets/material-ui.png";
 
 export default function About() {
   return (
-    <Container maxWidth="md" sx={{ textAlign: "center", mt: 8, color: "text.primary" }}>
+    <Container maxWidth="md" sx={{ textAlign: "center", mt: 8, color: "text.primary", paddingTop: "30px" }}>
       <motion.div
   initial={{ opacity: 0, scale: 0.8 }}
   animate={{ opacity: 1, scale: 1 }}

@@ -85,7 +85,7 @@ export default function Home() {
             component={Link}
             to="/projects"
             sx={{
-              padding: "12px 24px", // Aumenta el tamaño del botón
+              padding: "12px 18px", // Aumenta el tamaño del botón
               fontSize: "1.1rem",
               transition: "transform 0.3s",
               "&:hover": { transform: "scale(1.1)" },

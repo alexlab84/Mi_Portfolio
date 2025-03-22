@@ -25,6 +25,8 @@ export default function Navbar() {
         <Typography
           variant="h6"
           sx={{
+            paddingBottom: "4px", // Añadir un poco de espacio en la parte inferior
+            fontWeight: "bold", // Poner en negrita
             flexGrow: 1,
             textAlign: { xs: "center", sm: "left" }, // Centrado en móviles, alineado a la izquierda en pantallas grandes
             marginLeft: { xs: "0", sm: "16px" }, // Aseguramos que haya margen en pantallas grandes
@@ -33,16 +35,36 @@ export default function Navbar() {
           AS | Fullstack developer
         </Typography>
         <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-          <Button color="inherit" component={Link} to="/">
+          <Button 
+          color="inherit" 
+          component={Link} 
+          to="/"
+          sx={{
+            fontSize: { xs: "1rem", sm: "1rem" }, // Tamaño más grande en pantallas grandes
+            fontWeight: "bold", // Poner en negrita
+            
+          }}>
             Inicio
           </Button>
-          <Button color="inherit" component={Link} to="/about">
+          <Button color="inherit" component={Link} to="/about"sx={{
+            fontSize: { xs: "1rem", sm: "1rem" }, // Tamaño más grande en pantallas grandes
+            fontWeight: "bold", // Poner en negrita
+            
+          }}>
             Sobre mí
           </Button>
-          <Button color="inherit" component={Link} to="/projects">
+          <Button color="inherit" component={Link} to="/projects"sx={{
+            fontSize: { xs: "1rem", sm: "1rem" }, // Tamaño más grande en pantallas grandes
+            fontWeight: "bold", // Poner en negrita
+            
+          }}>
             Proyectos
           </Button>
-          <Button color="inherit" component={Link} to="/contact">
+          <Button color="inherit" component={Link} to="/contact"sx={{
+            fontSize: { xs: "1rem", sm: "1rem" }, // Tamaño más grande en pantallas grandes
+            fontWeight: "bold", // Poner en negrita
+            
+          }}>
             Contacto
           </Button>
         </Box>
