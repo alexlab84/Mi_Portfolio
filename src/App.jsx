@@ -6,12 +6,9 @@ import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
 import Navbar from "./components/NavBar.jsx";
 
-
-import './styles/App.css'
+import "./styles/App.css";
 
 function App() {
-  
-
   return (
     <Router>
       <Navbar />
@@ -22,7 +19,7 @@ function App() {
         <Route path="/contact" element={<Contact />} />
       </Routes>
     </Router>
-  )
+  );
 }
 
-export default App
+export default App;
