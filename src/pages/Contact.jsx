@@ -60,7 +60,7 @@ export default function Contact() {
               <Button
                 variant="contained"
                 startIcon={<LinkedIn />}
-                href="https://linkedin.com"
+                href="https://linkedin.com/in/alexlab84"
                 target="_blank"
                 fullWidth
                 sx={{
@@ -76,7 +76,7 @@ export default function Contact() {
               <Button
                 variant="contained"
                 startIcon={<GitHub />}
-                href="https://github.com"
+                href="https://github.com/alexlab84"
                 target="_blank"
                 fullWidth
                 sx={{
@@ -92,7 +92,7 @@ export default function Contact() {
               <Button
                 variant="contained"
                 startIcon={<Email />}
-                href="mailto:alejandra.sanchez.garcia@gmail.com"
+                href="mailto:alejandra.sachez.garcia@gmail.com"
                 fullWidth
                 sx={{
                   backgroundColor: "#6A0DAD",
