@@ -92,7 +92,17 @@ export default function Navbar() {
           </Button>
         </Box>
       </Toolbar>
-      <Drawer open={open} onClose={toggleDrawer}>
+      <Drawer open={open} onClose={toggleDrawer} sx={{
+           
+          flexShrink: 0,
+          "& .MuiDrawer-paper": {
+            width: 180, 
+            height: "auto", 
+            backgroundColor: "#673ab7",
+            color: "#fff",
+            paddingTop: "20px",
+          },
+        }}>
         <Box
           sx={{ width: 250 }}
           role="presentation"
