@@ -25,8 +25,8 @@ const projects = [
     url: "https://github.com/midudev/la-velada-web-oficial",
   },
   {
-    title: "Quiniela Parkour (Fullstack)",
-    description: "Aplicación para gestionar quinielas, permitiendo a los usuarios hacer predicciones y comparar resultados en tiempo real. Creado con React, Django y PostgreSQL.",
+    title: "Plataforma de Pronósticos Deportivos",
+    description: "Aplicación Fullstack para gestionar ligas y pronósticos deportivos, permitiendo a los usuarios hacer predicciones y comparar resultados en tiempo real. Desarrollada con React, Django y PostgreSQL.",
     image: quiniela,
     url: "https://parallel-justinn-juanyale-930ef30a.koyeb.app/login",
   }
