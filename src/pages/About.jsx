@@ -32,8 +32,7 @@ export default function About() {
         >
           <Typography variant="h3" gutterBottom>
             <span style={{ color: "#80DEEA", fontWeight: "bold" }}>
-              ¿Qué sucede cuando decides reinventarte y encuentras tu verdadera
-              pasión?
+              Frontend Developer enfocada en rendimiento y experiencia de usuario
             </span>
           </Typography>
         </motion.div>
@@ -48,25 +47,20 @@ export default function About() {
             paragraph
             sx={{ fontSize: "1.2rem", textAlign: "justify" }}
           >
-            Mi viaje hacia el desarrollo Front-End comenzó lejos del teclado.
-            Durante años trabajé en análisis clínicos, un entorno donde la
-            precisión y la resolución de problemas eran esenciales. Sin embargo,
-            siempre sentí curiosidad por cómo la tecnología podía transformar
-            vidas, incluida la mía. Todo cambió cuando descubrí la programación:
-            el desafío intelectual, la creatividad y la posibilidad de construir
-            herramientas útiles me atraparon desde el primer "Hello, World!".
+            Soy una desarrolladora web apasionada por crear interfaces digitales
+            que destaquen tanto por su estética premium como por su funcionalidad y rendimiento.
+            Mi enfoque principal es el desarrollo Frontend, donde combino mi creatividad con un sólido conocimiento técnico para construir experiencias de usuario excepcionales.
           </Typography>
           <Typography
             variant="h6"
             paragraph
             sx={{ fontSize: "1.2rem", textAlign: "justify" }}
           >
-            Después de completar un bootcamp intensivo en Adalab, me sumergí de
-            lleno en el desarrollo de aplicaciones web, especializándome en
-            HTML5, CSS3, SASS, JavaScript (ES6+), React, Python, Django y Git.
-            Durante este proceso, apliqué metodologías ágiles como Scrum para
-            crear soluciones interactivas y funcionales, destacando mi capacidad
-            para adaptarme rápidamente y resolver problemas complejos.
+            A lo largo de mi trayectoria, he colaborado en proyectos de alto impacto como la web de
+            <a href="https://github.com/midudev/la-velada-web-oficial" target="_blank" rel="noopener noreferrer" style={{color: "#80DEEA", textDecoration: "none", fontWeight: "bold"}}> La Velada del Año V </a> junto al equipo de Midudev, he contribuido al crecimiento de eTrivium,
+            y actualmente coordino toda la estrategia digital, CRO y desarrollo web de <a href="https://www.luciojm.es" target="_blank" rel="noopener noreferrer" style={{color: "#80DEEA", textDecoration: "none", fontWeight: "bold"}}>Lucio J&M</a>,
+            una marca premium donde gestiono tanto la infraestructura en WordPress/WooCommerce como el diseño UI/UX.
+            Mi stack principal se centra en React, JavaScript y Material-UI, y destaco por mi capacidad para adaptarme rápidamente a las tecnologías que requiera cada proyecto.
           </Typography>
         </motion.div>
 

@@ -11,63 +11,39 @@ import {
 } from "@mui/material";
 import { motion } from "framer-motion";
 import quiniela from "../assets/Quiniela.jpg";
-import refran from "../assets/refran.jpg";
-import meme from "../assets/meme.jpg";
-import colesterol from "../assets/cholResults.jpg";
-import harryPotter from "../assets/HarryPotter.png";
-import molones from "../assets/ProyectosMolones.jpg";
-import profiles from "../assets/AwesomeProfileCards.jpg";
+import luciojm from "../assets/luciojm.png";
+import etrivium from "../assets/etrivium.png";
+import lavelada from "../assets/la velada v.png";
 
 const projects = [
+  {
+    title: "Lucio J&M (Tienda Online Premium)",
+    description:
+      "Desarrollo, mantenimiento y optimización (CRO) de la plataforma e-commerce de Lucio J&M. Diseño y maquetación con WordPress y Elementor enfocados en el rendimiento y experiencia de usuario.",
+    image: luciojm,
+    url: "https://www.luciojm.es",
+  },
+  {
+    title: "eTrivium",
+    description:
+      "Desarrollo de nuevas funcionalidades y mejora de la experiencia de usuario (UX/UI). Contribución activa a la refactorización para lograr un código más limpio y escalable.",
+    image: etrivium,
+    url: "https://etrivium.es/", // Enlace a la web comercial aunque trabajases en la herramienta interna
+  },
+  {
+    title: "La Velada del Año V",
+    description:
+      "Colaboración en el desarrollo del sitio web oficial del evento de Ibai Llanos junto al equipo de Midudev. Uso de Astro, TypeScript y Tailwind CSS para un rendimiento excepcional.",
+    image: lavelada,
+    url: "https://github.com/midudev/la-velada-web-oficial", // Enlace al repositorio porque la web cambia cada año
+  },
   {
     title: "Quiniela Parkour (React, Django, PostgreSQL)",
     description:
       "Aplicación para gestionar quinielas, permitiendo a los usuarios hacer predicciones y comparar resultados en tiempo real. Usuario de prueba: test@test.com, contraseña: quiniela2024.",
     image: quiniela,
     url: "https://parallel-justinn-juanyale-930ef30a.koyeb.app/login",
-  },
-  {
-    title: "Meme Generator (React, HTML, CSS)",
-    description:
-      "Herramienta interactiva para crear memes personalizados con texto editable y diferentes plantillas de imágenes.",
-    image: meme,
-    url: "https://alexlab84.github.io/Meme-Generator/",
-  },
-  {
-    title: "Refranero divertido (JavaScript, HTML, CSS)",
-    description:
-      "Generador dinámico de refranes con un toque de humor, combinando frases populares de manera ingeniosa y entretenida.",
-    image: refran,
-    url: "https://alexlab84.github.io/Generador-de-refranes-divertidos/",
-  },
-  {
-    title: "Cholesterol Results (JavaScript, D3.js, HTML, CSS)",
-    description:
-      "Visualización interactiva de datos médicos sobre colesterol, facilitando su interpretación mediante gráficos intuitivos.",
-    image: colesterol,
-    url: "https://alexlab84.github.io/Visualization-of-cholesterol-test-results/",
-  },
-  {
-    title: "Harry Potter Cards (React, SCSS, API Harry Potter)",
-    description:
-      "Aplicación de tarjetas coleccionables con personajes del universo de Harry Potter, organizadas por casas y características mágicas.",
-    image: harryPotter,
-    url: "https://alexlab84.github.io/HarryPotterCards/",
-  },
-  {
-    title: "Proyectos Molones (React, CSS, JavaScript)",
-    description:
-      "Colección de proyectos interesantes creados con React, destacando diferentes funcionalidades y diseños atractivos.",
-    image: molones,
-    url: "https://alexlab84.github.io/Proyectos-Molones-React/",
-  },
-  {
-    title: "Awesome Profile Cards (JavaScript, HTML, SASS)",
-    description:
-      "Generador de tarjetas de presentación digitales, personalizables con foto, información de contacto y enlaces a redes sociales.",
-    image: profiles,
-    url: "https://alexlab84.github.io/Awesome-profile-cards/",
-  },
+  }
 ];
 
 export default function Projects() {

@@ -52,8 +52,8 @@ export default function Home() {
               <Typewriter
                 words={[
                   "Alejandra Sánchez",
+                  "Frontend Developer",
                   "Web Developer",
-                  "Fullstack Developer",
                 ]}
                 loop={true}
                 cursor
@@ -78,16 +78,16 @@ export default function Home() {
           >
             Programadora{" "}
             <span style={{ color: "#80DEEA", fontWeight: "bold" }}>
-              Fullstack en formación
+              Frontend Developer
             </span>
-            , apasionada por crear{" "}
+            , especializada en crear{" "}
             <span style={{ color: "#80DEEA", fontWeight: "bold" }}>
               experiencias digitales
             </span>{" "}
-            funcionales y atractivas. Actualmente, me especializo en{" "}
+            atractivas y funcionales. Con experiencia real trabajando en entornos modernos con{" "}
             <span style={{ color: "#80DEEA", fontWeight: "bold" }}>React</span>{" "}
-            y{" "}
-            <span style={{ color: "#80DEEA", fontWeight: "bold" }}>Django</span>
+            y en la optimización de sitios en{" "}
+            <span style={{ color: "#80DEEA", fontWeight: "bold" }}>WordPress y Elementor</span>
             .
           </Typography>
         </motion.div>
@@ -111,7 +111,7 @@ export default function Home() {
               variant="contained"
               color="primary"
               component={Link}
-              to="/projects"
+              to="/experience"
               sx={{
                 padding: "12px 18px",
                 fontSize: "1.1rem",
@@ -120,11 +120,26 @@ export default function Home() {
                 width: { xs: "100%", sm: "auto" },
               }}
             >
-              Ver Proyectos
+              Mi Experiencia
             </Button>
             <Button
               variant="outlined"
               color="secondary"
+              component={Link}
+              to="/services"
+              sx={{
+                padding: "12px 24px",
+                fontSize: "1.1rem",
+                transition: "transform 0.3s",
+                "&:hover": { transform: "scale(1.1)" },
+                width: { xs: "100%", sm: "auto" },
+              }}
+            >
+              Servicios Web
+            </Button>
+            <Button
+              variant="text"
+              color="inherit"
               component={Link}
               to="/contact"
               sx={{

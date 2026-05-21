@@ -71,6 +71,28 @@ export default function Navbar() {
           <Button
             color="inherit"
             component={Link}
+            to="/experience"
+            sx={{
+              fontSize: { xs: "1rem", sm: "1rem" },
+              fontWeight: "bold",
+            }}
+          >
+            Experiencia
+          </Button>
+          <Button
+            color="inherit"
+            component={Link}
+            to="/services"
+            sx={{
+              fontSize: { xs: "1rem", sm: "1rem" },
+              fontWeight: "bold",
+            }}
+          >
+            Servicios
+          </Button>
+          <Button
+            color="inherit"
+            component={Link}
             to="/projects"
             sx={{
               fontSize: { xs: "1rem", sm: "1rem" },
@@ -118,6 +140,12 @@ export default function Navbar() {
             </ListItem>
             <ListItem button component={Link} to="/about">
               <ListItemText primary="Sobre mí" sx={{ color: "#f5f5f5" }} />
+            </ListItem>
+            <ListItem button component={Link} to="/experience">
+              <ListItemText primary="Experiencia" sx={{ color: "#f5f5f5" }} />
+            </ListItem>
+            <ListItem button component={Link} to="/services">
+              <ListItemText primary="Servicios" sx={{ color: "#f5f5f5" }} />
             </ListItem>
             <ListItem button component={Link} to="/projects">
               <ListItemText primary="Proyectos" sx={{ color: "#f5f5f5" }} />
