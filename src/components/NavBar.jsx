@@ -11,119 +11,138 @@ import {
   Box,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const location = useLocation();
 
   const toggleDrawer = () => {
     setOpen(!open);
   };
 
+  const navLinks = [
+    { name: "Inicio", path: "/" },
+    { name: "Sobre mí", path: "/about" },
+    { name: "Experiencia", path: "/experience" },
+    { name: "Servicios", path: "/services" },
+    { name: "Proyectos", path: "/projects" },
+  ];
+
   return (
-    <AppBar position="fixed" sx={{ backgroundColor: "#673ab7", zIndex: 1201 }}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="open menu"
-          edge="start"
-          sx={{ display: { xs: "block", sm: "none" } }}
-          onClick={toggleDrawer}
-        >
-          <MenuIcon />
-        </IconButton>
-        <Typography
-          variant="h6"
-          sx={{
-            paddingBottom: "4px",
-            fontWeight: "bold",
-            flexGrow: 1,
-            textAlign: { xs: "center", sm: "left" },
-            marginLeft: { xs: "0", sm: "16px" },
-          }}
-        >
-          AS | Fullstack developer
-        </Typography>
-        <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-          <Button
+    <>
+      <AppBar 
+        position="fixed" 
+        sx={{ 
+          top: { xs: 15, md: 25 }, 
+          left: 0, 
+          right: 0, 
+          width: { xs: "92%", md: "850px" }, 
+          mx: "auto", 
+          borderRadius: "50px",
+          background: "rgba(17, 24, 39, 0.85)", // #111827 semi-transparente
+          backdropFilter: "blur(16px)",
+          WebkitBackdropFilter: "blur(16px)",
+          border: "1px solid rgba(255, 255, 255, 0.1)",
+          boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.3)",
+          color: "#fff",
+          zIndex: 1201 
+        }}
+      >
+        <Toolbar sx={{ minHeight: { xs: "56px", sm: "64px" }, px: { xs: 2, md: 4 } }}>
+          <IconButton
             color="inherit"
+            aria-label="open menu"
+            edge="start"
+            sx={{ display: { xs: "block", sm: "none" }, mr: 1 }}
+            onClick={toggleDrawer}
+          >
+            <MenuIcon />
+          </IconButton>
+
+          <Typography
+            variant="h6"
             component={Link}
             to="/"
             sx={{
-              fontSize: { xs: "1rem", sm: "1rem" },
-              fontWeight: "bold",
+              fontWeight: 800,
+              flexGrow: { xs: 1, sm: 0 },
+              textDecoration: "none",
+              color: "#fff",
+              mr: { sm: 4 },
+              letterSpacing: "-0.02em",
+              textAlign: { xs: "right", sm: "left" }
             }}
           >
-            Inicio
-          </Button>
-          <Button
-            color="inherit"
-            component={Link}
-            to="/about"
-            sx={{
-              fontSize: { xs: "1rem", sm: "1rem" },
-              fontWeight: "bold",
-            }}
-          >
-            Sobre mí
-          </Button>
-          <Button
-            color="inherit"
-            component={Link}
-            to="/experience"
-            sx={{
-              fontSize: { xs: "1rem", sm: "1rem" },
-              fontWeight: "bold",
-            }}
-          >
-            Experiencia
-          </Button>
-          <Button
-            color="inherit"
-            component={Link}
-            to="/services"
-            sx={{
-              fontSize: { xs: "1rem", sm: "1rem" },
-              fontWeight: "bold",
-            }}
-          >
-            Servicios
-          </Button>
-          <Button
-            color="inherit"
-            component={Link}
-            to="/projects"
-            sx={{
-              fontSize: { xs: "1rem", sm: "1rem" },
-              fontWeight: "bold",
-            }}
-          >
-            Proyectos
-          </Button>
-          <Button
-            color="inherit"
-            component={Link}
-            to="/contact"
-            sx={{
-              fontSize: { xs: "1rem", sm: "1rem" },
-              fontWeight: "bold",
-            }}
-          >
-            Contacto
-          </Button>
-        </Box>
-      </Toolbar>
+            AS<span style={{ color: "#2563eb" }}>.</span>
+          </Typography>
+
+          <Box sx={{ display: { xs: "none", sm: "flex" }, flexGrow: 1, gap: 1 }}>
+            {navLinks.map((link) => {
+              const isActive = location.pathname === link.path;
+              return (
+                <Button
+                  key={link.name}
+                  component={Link}
+                  to={link.path}
+                  sx={{
+                    color: isActive ? "#fff" : "#9ca3af",
+                    fontSize: "0.95rem",
+                    fontWeight: 600,
+                    textTransform: "none",
+                    borderRadius: "20px",
+                    px: 2,
+                    background: isActive ? "rgba(255, 255, 255, 0.1)" : "transparent",
+                    transition: "all 0.2s",
+                    "&:hover": {
+                      color: "#fff",
+                      background: "rgba(255, 255, 255, 0.15)",
+                    }
+                  }}
+                >
+                  {link.name}
+                </Button>
+              );
+            })}
+          </Box>
+
+          <Box sx={{ display: { xs: "none", sm: "block" } }}>
+            <Button
+              component={Link}
+              to="/contact"
+              variant="contained"
+              sx={{
+                background: "linear-gradient(90deg, #2563eb 0%, #4f46e5 100%)",
+                borderRadius: "50px",
+                textTransform: "none",
+                fontWeight: 700,
+                px: 3,
+                boxShadow: "0 4px 14px 0 rgba(37, 99, 235, 0.39)",
+                "&:hover": {
+                  background: "linear-gradient(90deg, #1d4ed8 0%, #4338ca 100%)",
+                  boxShadow: "0 6px 20px rgba(37, 99, 235, 0.5)",
+                }
+              }}
+            >
+              Hablemos
+            </Button>
+          </Box>
+        </Toolbar>
+      </AppBar>
+
       <Drawer
+        anchor="right"
         open={open}
         onClose={toggleDrawer}
         sx={{
-          flexShrink: 0,
+          zIndex: 1300,
           "& .MuiDrawer-paper": {
-            width: 180,
-            height: "auto",
-            backgroundColor: "#673ab7",
+            width: 250,
+            background: "rgba(17, 24, 39, 0.95)",
+            backdropFilter: "blur(16px)",
             color: "#fff",
+            borderLeft: "1px solid rgba(255,255,255,0.1)",
             paddingTop: "20px",
           },
         }}
@@ -134,28 +153,27 @@ export default function Navbar() {
           onClick={toggleDrawer}
           onKeyDown={toggleDrawer}
         >
-          <List sx={{ paddingTop: "60px" }}>
-            <ListItem button component={Link} to="/">
-              <ListItemText primary="Inicio" sx={{ color: "#f5f5f5" }} />
-            </ListItem>
-            <ListItem button component={Link} to="/about">
-              <ListItemText primary="Sobre mí" sx={{ color: "#f5f5f5" }} />
-            </ListItem>
-            <ListItem button component={Link} to="/experience">
-              <ListItemText primary="Experiencia" sx={{ color: "#f5f5f5" }} />
-            </ListItem>
-            <ListItem button component={Link} to="/services">
-              <ListItemText primary="Servicios" sx={{ color: "#f5f5f5" }} />
-            </ListItem>
-            <ListItem button component={Link} to="/projects">
-              <ListItemText primary="Proyectos" sx={{ color: "#f5f5f5" }} />
-            </ListItem>
-            <ListItem button component={Link} to="/contact">
-              <ListItemText primary="Contacto" sx={{ color: "#f5f5f5" }} />
-            </ListItem>
+          <Typography variant="h5" sx={{ fontWeight: 800, ml: 3, mb: 3, mt: 2 }}>
+            AS<span style={{ color: "#2563eb" }}>.</span>
+          </Typography>
+          <List>
+            {[...navLinks, { name: "Contacto", path: "/contact" }].map((link) => (
+              <ListItem button component={Link} to={link.path} key={link.name} sx={{ mb: 1 }}>
+                <ListItemText 
+                  primary={link.name} 
+                  sx={{ 
+                    ml: 1,
+                    "& .MuiTypography-root": {
+                      fontWeight: 600,
+                      color: location.pathname === link.path ? "#2563eb" : "#d1d5db"
+                    }
+                  }} 
+                />
+              </ListItem>
+            ))}
           </List>
         </Box>
       </Drawer>
-    </AppBar>
+    </>
   );
 }
