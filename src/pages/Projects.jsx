@@ -67,7 +67,7 @@ export default function Projects() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 }}>
-                  Destacados.
+                  Destacados
                 </span>
               </Typography>
             </motion.div>

@@ -1,6 +1,7 @@
-import { Container, Typography, Box, Grid, Card } from "@mui/material";
+import { Container, Typography, Box, Grid, Card, Avatar } from "@mui/material";
 import { motion } from "framer-motion";
 
+import avatarImage from "../assets/alejandra-blanco.png";
 import htmlIcon from "../assets/html-5.png";
 import cssIcon from "../assets/css-3.png";
 import jsIcon from "../assets/js.png";
@@ -28,9 +29,10 @@ export default function About() {
       <Container maxWidth="lg">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           
-          <Grid container spacing={6} alignItems="center">
-            <Grid item xs={12} md={7}>
-              <motion.div variants={itemVariants}>
+          <Grid container spacing={4} alignItems="stretch">
+            {/* TEXT COLUMN */}
+            <Grid item xs={12} md={7} sx={{ display: "flex", flexDirection: "column" }}>
+              <motion.div variants={itemVariants} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                 <Typography 
                   variant="h1" 
                   sx={{ 
@@ -50,20 +52,17 @@ export default function About() {
                   }}>
                     funcionalidad
                   </span><br />
-                  con estética.
+                  con estética
                 </Typography>
-              </motion.div>
-            </Grid>
-            
-            <Grid item xs={12} md={5}>
-              <motion.div variants={itemVariants}>
+
                 <Card sx={{ 
-                  p: 4, 
+                  p: { xs: 4, md: 5 }, 
                   borderRadius: "32px", 
                   background: "rgba(255, 255, 255, 0.7)", 
                   backdropFilter: "blur(20px)",
                   border: "1px solid #f3f4f6",
-                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.05)"
+                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.05)",
+                  flex: 1
                 }}>
                   <Typography variant="body1" sx={{ color: "#4b5563", fontSize: "1.1rem", lineHeight: 1.8, mb: 3 }}>
                     Soy una desarrolladora web apasionada por crear interfaces digitales que destaquen tanto por su <b>estética premium</b> como por su <b>rendimiento</b>.
@@ -74,6 +73,40 @@ export default function About() {
                   <Typography variant="body1" sx={{ color: "#4b5563", fontSize: "1.1rem", lineHeight: 1.8 }}>
                     Vengo del mundo del laboratorio clínico, lo que me ha dado una capacidad analítica brutal que ahora aplico al código. A lo largo de mi trayectoria he colaborado en proyectos de alto impacto como <b>La Velada del Año V</b> de Ibai Llanos (junto a Midudev) y actualmente coordino toda la estrategia digital y e-commerce de la marca premium <b>Lucio J&M</b>.
                   </Typography>
+                </Card>
+              </motion.div>
+            </Grid>
+            
+            {/* IMAGE COLUMN */}
+            <Grid item xs={12} md={5} sx={{ display: "flex" }}>
+              <motion.div variants={itemVariants} style={{ width: "100%", display: "flex" }}>
+                <Card sx={{ 
+                  width: "100%",
+                  minHeight: { xs: "400px", md: "100%" },
+                  borderRadius: "32px", 
+                  border: "1px solid #f3f4f6",
+                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.05)",
+                  overflow: "hidden",
+                  position: "relative",
+                  background: "#fff"
+                }}>
+                  <Box 
+                    component="img" 
+                    src={avatarImage} 
+                    sx={{ 
+                      position: "absolute",
+                      width: "100%", 
+                      height: "100%", 
+                      objectFit: "cover",
+                      objectPosition: "center top"
+                    }} 
+                  />
+                  {/* Subtle gradient overlay at the bottom for premium feel */}
+                  <Box sx={{
+                    position: "absolute",
+                    bottom: 0, left: 0, right: 0, height: "30%",
+                    background: "linear-gradient(to top, rgba(0,0,0,0.1), transparent)"
+                  }} />
                 </Card>
               </motion.div>
             </Grid>

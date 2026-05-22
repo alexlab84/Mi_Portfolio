@@ -1,6 +1,6 @@
 import { Container, Typography, Button, Box, Card } from "@mui/material";
 import { motion } from "framer-motion";
-import { LinkedIn, Email, GitHub, Send } from "@mui/icons-material";
+import { LinkedIn, Email, GitHub, Send, Event } from "@mui/icons-material";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -69,34 +69,54 @@ export default function Contact() {
                   }}
                 >
                   Vamos a crear <br />
-                  <span style={{ color: "#2563eb" }}>algo genial.</span>
+                  <span style={{ color: "#2563eb" }}>algo genial</span>
                 </Typography>
 
                 <Typography variant="body1" sx={{ color: "#4b5563", fontSize: "1.2rem", mb: 6, maxWidth: "500px", mx: "auto", lineHeight: 1.6 }}>
                   ¿Tienes una idea, un proyecto en mente o simplemente quieres saludar? ¡Estoy emocionada por conectar contigo!
                 </Typography>
 
-                <Box display="flex" flexDirection={{ xs: "column", sm: "row" }} gap={3} justifyContent="center" alignItems="center">
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "250px" }}>
+                <Box display="flex" flexWrap="wrap" gap={2} justifyContent="center" alignItems="center">
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "220px" }}>
                     <Button
                       variant="contained"
-                      startIcon={<Email />}
-                      href="mailto:alejandra.sachez.garcia@gmail.com"
+                      startIcon={<Event />}
+                      href="https://calendly.com/alejandra-sachez-garcia/30min"
+                      target="_blank"
                       fullWidth
                       sx={{
                         py: 1.5,
-                        fontSize: "1.1rem",
+                        fontSize: "1rem",
                         borderRadius: "50px",
                         background: "linear-gradient(135deg, #2563eb 0%, #4f46e5 100%)",
                         boxShadow: "0 10px 20px -5px rgba(37, 99, 235, 0.4)",
                         "&:hover": { background: "linear-gradient(135deg, #1d4ed8 0%, #4338ca 100%)" },
                       }}
                     >
+                      Agendar Reunión
+                    </Button>
+                  </motion.div>
+
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "220px" }}>
+                    <Button
+                      variant="outlined"
+                      startIcon={<Email />}
+                      href="mailto:alejandra.sachez.garcia@gmail.com"
+                      fullWidth
+                      sx={{
+                        py: 1.5,
+                        fontSize: "1rem",
+                        borderRadius: "50px",
+                        color: "#111827",
+                        border: "2px solid #111827",
+                        "&:hover": { border: "2px solid #111827", background: "rgba(17, 24, 39, 0.05)" },
+                      }}
+                    >
                       Email
                     </Button>
                   </motion.div>
 
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "250px" }}>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "220px" }}>
                     <Button
                       variant="outlined"
                       startIcon={<LinkedIn />}
@@ -105,7 +125,7 @@ export default function Contact() {
                       fullWidth
                       sx={{
                         py: 1.5,
-                        fontSize: "1.1rem",
+                        fontSize: "1rem",
                         borderRadius: "50px",
                         color: "#0077B5",
                         border: "2px solid #0077B5",
@@ -117,7 +137,7 @@ export default function Contact() {
                     </Button>
                   </motion.div>
 
-                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "250px" }}>
+                  <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }} style={{ width: "100%", maxWidth: "220px" }}>
                     <Button
                       variant="outlined"
                       startIcon={<GitHub />}
@@ -126,7 +146,7 @@ export default function Contact() {
                       fullWidth
                       sx={{
                         py: 1.5,
-                        fontSize: "1.1rem",
+                        fontSize: "1rem",
                         borderRadius: "50px",
                         color: "#111827",
                         border: "2px solid #111827",

@@ -6,7 +6,7 @@ const experiences = [
     title: "Digital & Web Coordinator",
     company: "Lucio J&M",
     link: "https://www.luciojm.es",
-    date: "Dic 2024 - Actualidad",
+    date: "Dic 2025 - Actualidad",
     description: "Gestión y mantenimiento de la plataforma web usando WordPress y Elementor. Implementación de mejoras de frontend personalizadas mediante HTML, CSS, JavaScript y PHP. Coordinación de integraciones externas y optimización CRO.",
     skills: ["WordPress", "Elementor", "HTML/CSS", "JavaScript", "CRO"],
     color: "#2563eb"
@@ -74,7 +74,7 @@ export default function Experience() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 }}>
-                  Profesional.
+                  Profesional
                 </span>
               </Typography>
             </motion.div>

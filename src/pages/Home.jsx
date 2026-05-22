@@ -2,7 +2,7 @@ import { Container, Typography, Box, Grid, Card, Button, Avatar } from "@mui/mat
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowForward, Code, Web, AutoGraph } from "@mui/icons-material";
-import avatarImage from "../assets/alejandra-porfolio.png";
+import avatarImage from "../assets/alejandra-blanco.png";
 import reactIcon from "../assets/react.png";
 import jsIcon from "../assets/js.png";
 import muiIcon from "../assets/material-ui.png";
@@ -46,7 +46,7 @@ export default function Home() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 }}>
-                  Developer.
+                  Developer
                 </span>
               </Typography>
             </motion.div>

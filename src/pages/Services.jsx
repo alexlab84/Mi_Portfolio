@@ -72,7 +72,7 @@ export default function Services() {
                   WebkitBackgroundClip: "text",
                   WebkitTextFillColor: "transparent"
                 }}>
-                  Destacados.
+                  Destacados
                 </span>
               </Typography>
             </motion.div>
