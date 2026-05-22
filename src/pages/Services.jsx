@@ -101,7 +101,7 @@ export default function Services() {
                     <Box sx={{ mb: 3 }}>
                       {service.icon}
                     </Box>
-                    <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, letterSpacing: "-0.02em" }}>
+                    <Typography variant="h4" sx={{ color: "inherit", fontWeight: 800, mb: 2, letterSpacing: "-0.02em" }}>
                       {service.title}
                     </Typography>
                     <Typography variant="body1" sx={{ color: service.textBg, fontSize: "1.1rem", lineHeight: 1.6 }}>
