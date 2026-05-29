@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/Mi_Portfolio/', // 👈 Asegura que coincide con el nombre del repo
+  base: '/', // 👈 Cambiado a '/' para Vercel (en GitHub Pages era '/Mi_Portfolio/')
   build: {
     outDir: 'dist',
   },
