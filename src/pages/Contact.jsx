@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Container, Typography, Button, Box, Card } from "@mui/material";
 import { motion } from "framer-motion";
 import { LinkedIn, Email, GitHub, Send, Event } from "@mui/icons-material";
@@ -15,6 +16,13 @@ const itemVariants = {
 export default function Contact() {
   return (
     <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh", display: "flex", alignItems: "center" }}>
+      <Helmet>
+        <title>Contacto | Alejandra Sánchez Frontend Developer</title>
+        <meta name="description" content="¿Tienes un proyecto en mente? Contacta con Alejandra Sánchez, Frontend Developer disponible para proyectos freelance de desarrollo web, e-commerce y diseño UI/UX." />
+        <link rel="canonical" href="https://www.alejandrasanchezdev.es/contact" />
+        <meta property="og:title" content="Contacto | Alejandra Sánchez" />
+        <meta property="og:url" content="https://www.alejandrasanchezdev.es/contact" />
+      </Helmet>
       <Container maxWidth="md">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           

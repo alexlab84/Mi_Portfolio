@@ -1,9 +1,10 @@
+import { Helmet } from "react-helmet-async";
 import { Container, Typography, Card, CardContent, CardMedia, Grid, Box } from "@mui/material";
 import { motion } from "framer-motion";
-import quiniela from "../assets/Quiniela.jpg";
-import luciojm from "../assets/luciojm.png";
-import etrivium from "../assets/etrivium.png";
-import lavelada from "../assets/la velada v.png";
+import quiniela from "../assets/Quiniela.webp";
+import luciojm from "../assets/luciojm.webp";
+import etrivium from "../assets/etrivium.webp";
+import lavelada from "../assets/la velada v.webp";
 
 const projects = [
   {
@@ -45,6 +46,13 @@ const itemVariants = {
 export default function Projects() {
   return (
     <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+      <Helmet>
+        <title>Proyectos | Alejandra Sánchez Frontend Developer</title>
+        <meta name="description" content="Proyectos destacados de Alejandra Sánchez: Lucio J&M e-commerce, eTrivium, La Velada del Año V con Midudev y plataforma de pronósticos deportivos con React y Django." />
+        <link rel="canonical" href="https://www.alejandrasanchezdev.es/projects" />
+        <meta property="og:title" content="Proyectos | Alejandra Sánchez" />
+        <meta property="og:url" content="https://www.alejandrasanchezdev.es/projects" />
+      </Helmet>
       <Container maxWidth="lg">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           

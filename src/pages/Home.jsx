@@ -1,11 +1,12 @@
+import { Helmet } from "react-helmet-async";
 import { Container, Typography, Box, Grid, Card, Button, Avatar } from "@mui/material";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowForward, Code, Web, AutoGraph } from "@mui/icons-material";
-import avatarImage from "../assets/alejandra-blanco.png";
-import reactIcon from "../assets/react.png";
-import jsIcon from "../assets/js.png";
-import muiIcon from "../assets/material-ui.png";
+import avatarImage from "../assets/ale-cara.webp";
+import reactIcon from "../assets/react.webp";
+import jsIcon from "../assets/js.webp";
+import muiIcon from "../assets/material-ui.webp";
 
 // Animations
 const containerVariants = {
@@ -24,6 +25,14 @@ const itemVariants = {
 export default function Home() {
   return (
     <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+      <Helmet>
+        <title>Alejandra Sánchez | Frontend Developer</title>
+        <meta name="description" content="Soy Alejandra Sánchez, Frontend Developer especializada en React, WordPress y e-commerce. Creo interfaces premium y experiencias digitales de alto rendimiento." />
+        <link rel="canonical" href="https://www.alejandrasanchezdev.es/" />
+        <meta property="og:title" content="Alejandra Sánchez | Frontend Developer" />
+        <meta property="og:description" content="Frontend Developer especializada en React, WordPress y e-commerce." />
+        <meta property="og:url" content="https://www.alejandrasanchezdev.es/" />
+      </Helmet>
       <Container maxWidth="lg">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           {/* HERO SECTION */}

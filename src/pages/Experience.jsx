@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Container, Typography, Box, Card, Grid, Chip } from "@mui/material";
 import { motion } from "framer-motion";
 
@@ -53,6 +54,13 @@ const itemVariants = {
 export default function Experience() {
   return (
     <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+      <Helmet>
+        <title>Experiencia | Alejandra Sánchez Frontend Developer</title>
+        <meta name="description" content="Trayectoria profesional de Alejandra Sánchez: Frontend Developer en eTrivium, colaboradora en La Velada del Año V (Midudev) y Digital Coordinator en Lucio J&M." />
+        <link rel="canonical" href="https://www.alejandrasanchezdev.es/experience" />
+        <meta property="og:title" content="Experiencia | Alejandra Sánchez" />
+        <meta property="og:url" content="https://www.alejandrasanchezdev.es/experience" />
+      </Helmet>
       <Container maxWidth="lg">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           

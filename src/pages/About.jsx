@@ -1,14 +1,15 @@
+import { Helmet } from "react-helmet-async";
 import { Container, Typography, Box, Grid, Card, Avatar } from "@mui/material";
 import { motion } from "framer-motion";
 
-import avatarImage from "../assets/alejandra-blanco.png";
-import htmlIcon from "../assets/html-5.png";
-import cssIcon from "../assets/css-3.png";
-import jsIcon from "../assets/js.png";
-import reactIcon from "../assets/react.png";
-import pythonIcon from "../assets/piton.png";
-import djangoIcon from "../assets/django.png";
-import materialuiIcon from "../assets/material-ui.png";
+import avatarImage from "../assets/alejandra-blanco.webp";
+import htmlIcon from "../assets/html-5.webp";
+import cssIcon from "../assets/css-3.webp";
+import jsIcon from "../assets/js.webp";
+import reactIcon from "../assets/react.webp";
+import pythonIcon from "../assets/piton.webp";
+import djangoIcon from "../assets/django.webp";
+import materialuiIcon from "../assets/material-ui.webp";
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -26,12 +27,19 @@ const itemVariants = {
 export default function About() {
   return (
     <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+      <Helmet>
+        <title>Sobre Mí | Alejandra Sánchez Frontend Developer</title>
+        <meta name="description" content="Conoce a Alejandra Sánchez: Frontend Developer con background en laboratorio clínico, colaboradora en La Velada del Año V y responsable digital de Lucio J&M." />
+        <link rel="canonical" href="https://www.alejandrasanchezdev.es/about" />
+        <meta property="og:title" content="Sobre Mí | Alejandra Sánchez" />
+        <meta property="og:url" content="https://www.alejandrasanchezdev.es/about" />
+      </Helmet>
       <Container maxWidth="lg">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           
           <Grid container spacing={4} alignItems="stretch">
             {/* TEXT COLUMN */}
-            <Grid item xs={12} md={7} sx={{ display: "flex", flexDirection: "column" }}>
+            <Grid item xs={12} md={7} sx={{ display: "flex", flexDirection: "column", order: { xs: 2, md: 1 } }}>
               <motion.div variants={itemVariants} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
                 <Typography 
                   variant="h1" 
@@ -78,7 +86,7 @@ export default function About() {
             </Grid>
             
             {/* IMAGE COLUMN */}
-            <Grid item xs={12} md={5} sx={{ display: "flex" }}>
+            <Grid item xs={12} md={5} sx={{ display: "flex", order: { xs: 1, md: 2 } }}>
               <motion.div variants={itemVariants} style={{ width: "100%", display: "flex" }}>
                 <Card sx={{ 
                   width: "100%",

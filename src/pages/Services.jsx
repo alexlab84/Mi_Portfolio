@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet-async";
 import { Container, Typography, Box, Grid, Card } from "@mui/material";
 import { motion } from "framer-motion";
 import { Code, Web, AutoGraph, Palette } from "@mui/icons-material";
@@ -50,6 +51,13 @@ const itemVariants = {
 export default function Services() {
   return (
     <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+      <Helmet>
+        <title>Servicios | Alejandra Sánchez Frontend Developer</title>
+        <meta name="description" content="Servicios de Alejandra Sánchez: desarrollo web con React, e-commerce con WooCommerce, optimización CRO y diseño UI/UX. Interfaces premium enfocadas en resultados." />
+        <link rel="canonical" href="https://www.alejandrasanchezdev.es/services" />
+        <meta property="og:title" content="Servicios | Alejandra Sánchez" />
+        <meta property="og:url" content="https://www.alejandrasanchezdev.es/services" />
+      </Helmet>
       <Container maxWidth="lg">
         <motion.div variants={containerVariants} initial="hidden" animate="visible">
           
