@@ -1,0 +1,34 @@
+# Dependencias de Node (se regeneran con npm install)
+node_modules
+
+# Carpeta de build (se genera dentro del contenedor)
+dist
+
+# Control de versiones (no necesario para ejecutar la app)
+.git
+.gitignore
+.github
+
+# Documentación
+*.md
+README*
+
+# Variables de entorno locales (nunca incluir en imágenes)
+.env
+.env.*
+.env.local
+
+# Archivos del editor / IDE
+.vscode
+.idea
+*.swp
+*.swo
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
