@@ -29,9 +29,9 @@ const roles = [
   {
     role: "Frontend Developer",
     org: "La Velada del Año V — midudev",
-    link: "https://github.com/midudev/la-velada-web-oficial",
+    link: "https://github.com/midudev/la-velada-web-oficial/pulls?q=is%3Apr+author%3Aalexlab84",
     period: "Abr — May 2025",
-    body: "Web oficial del evento de Ibai Llanos. Unas 21.000 personas se presentaron para colaborar. Entré en el equipo.",
+    body: "Web oficial del evento de Ibai Llanos. Unas 21.000 personas se presentaron para colaborar. Entré en el equipo y dejé cuatro PRs fusionadas: la sección de banners de patrocinadores —componente, tipos y datos—, el swipe con ratón y táctil sobre la galería de boxeadores que ya existía, y mover los componentes a «sections».",
     stack: ["Astro", "TypeScript", "Tailwind CSS"],
   },
   {

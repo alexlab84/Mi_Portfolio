@@ -26,10 +26,10 @@ const projects = [
     year: "2025",
     kicker: "Con midudev",
     summary:
-      "Web oficial del evento de Ibai Llanos. Se presentaron unas 21.000 personas para colaborar; entré en el equipo y trabajé dentro de un proyecto abierto, con revisión de código y mucha gente tocando a la vez.",
+      "Web oficial del evento de Ibai Llanos. Se presentaron unas 21.000 personas para colaborar; entré en el equipo y dejé cuatro pull requests fusionadas: la sección de banners de patrocinadores completa, el gesto de swipe —con ratón y con dedo— sobre la galería de boxeadores, y un refactor de la estructura de carpetas del proyecto.",
     stack: ["Astro", "TypeScript", "Tailwind CSS"],
     image: lavelada,
-    href: "https://github.com/midudev/la-velada-web-oficial",
+    href: "https://github.com/midudev/la-velada-web-oficial/pulls?q=is%3Apr+author%3Aalexlab84",
   },
   {
     title: "eTrivium",
