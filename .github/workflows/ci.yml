@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verificar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # npm ci instala exactamente lo del lock: reproducible y falla si
+      # package.json y package-lock.json no concuerdan.
+      - run: npm ci
+
+      - name: Linter
+        run: npm run lint
+
+      - name: Tests
+        run: npm test
+
+      # Que compile es parte de que funcione: un fallo de build no lo
+      # detecta ni el linter ni los tests.
+      - name: Build
+        run: npm run build

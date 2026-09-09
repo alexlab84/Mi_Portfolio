@@ -30,6 +30,15 @@ const sections = [
     ],
   },
   {
+    title: "Verificación",
+    items: [
+      "Los contrastes de la tabla de arriba no están escritos a mano: los comprueba un test en cada push. Si alguien cambia un color y deja de cumplir, el CI se pone rojo antes de que llegue a producción.",
+      "Ese test existe porque el borde de los botones estuvo a 1,56:1 cuando la norma pide 3:1, y no lo detectó nadie hasta que lo medí a la mano. Las cosas que dependen de que alguien se acuerde de mirarlas, tarde o temprano fallan.",
+      "El resto de tests cubren lo que se rompe sin avisar: que haya un solo h1 por página, que la ficha del hero siga siendo una lista de definiciones con sus pares completos, que el gráfico del caso de Lucio mantenga su descripción en texto, y que la navegación marque la página actual.",
+      "En cada push se ejecutan linter, tests y build. Que compile es parte de que funcione, y eso no lo detecta ni el linter ni los tests.",
+    ],
+  },
+  {
     title: "Interfaz",
     items: [
       "HTML con significado: la ficha de la portada es una lista de definiciones, la trayectoria una lista ordenada, y el gráfico del caso de Lucio lleva su descripción escrita para quien no lo ve.",
@@ -48,9 +57,10 @@ const contrasts = [
 ];
 
 const missing = [
-  "No hay tests. Es lo primero que le falta.",
   "No hay modo oscuro.",
+  "El contacto son enlaces, no un formulario.",
   "136 kB siguen siendo muchos para seis páginas que son casi todo texto. Es el precio de la librería de componentes, y se puede bajar.",
+  "Los tests cubren los tokens y el marcado, no el comportamiento: nadie comprueba todavía que el menú del móvil abra y cierre.",
 ];
 
 export default function Colofon() {
@@ -106,7 +116,7 @@ export default function Colofon() {
               <Typography sx={{ color: color.inkMuted, fontSize: size.body, maxWidth: "62ch", mb: 3 }}>
                 Todo el color de la web sale de un único archivo. Cambiar este naranja por otro es
                 cambiar una línea. Los contrastes están <Box component="em" sx={{ fontStyle: "normal", color: color.ink }}>medidos</Box>,
-                no estimados a ojo: la norma AA pide 4,5:1 para texto y 3:1 para el borde de un control.
+                no estimados a ojo: la norma AA pide 4,5:1 para texto y 3:1 para el borde de un control. Y los verifica un test, así que siguen siendo verdad.
               </Typography>
               <Box component="dl" sx={{ m: 0, borderTop: `1px solid ${color.line}`, maxWidth: "440px" }}>
                 {contrasts.map(([label, value]) => (

@@ -13,6 +13,8 @@ npm install
 npm run dev      # http://localhost:5173
 npm run build    # genera dist/
 npm run lint
+npm test         # vitest
+npm run test:watch
 ```
 
 También hay un `Dockerfile` multietapa que compila con Node y sirve el
@@ -66,16 +68,25 @@ cambios de contenido. Carga inicial: unos 136 kB comprimidos.
 **Escala tipográfica fluida.** Los tamaños interpolan con el ancho de la
 ventana usando `clamp()`, en vez de saltar en los puntos de ruptura.
 
+**Los contrastes los verifica un test.** `test/tokens.test.js` calcula el
+contraste de cada par de la paleta y falla si alguno baja del mínimo de
+WCAG. Existe porque el borde de los botones estuvo a 1,56:1 —la norma
+pide 3:1 para un contorno interactivo— y no lo detectó nadie hasta
+medirlo a mano. El resto de tests cubren lo que se rompe en silencio: un
+solo `h1` por página, la lista de definiciones del hero con sus pares
+completos, la descripción en texto del gráfico y el `aria-current` de la
+navegación. En cada push corren linter, tests y build.
+
 ## Lo que le falta
 
-- No hay tests. Es lo primero.
 - No hay modo oscuro.
+- El contacto son enlaces, no un formulario.
 - 136 kB siguen siendo muchos para seis páginas que son casi todo texto.
   Es el precio de la librería de componentes, y se puede bajar.
-- `src/index.css` y `src/styles/App.css` están vacíos y se siguen
-  importando.
+- Los tests cubren tokens y marcado, no comportamiento: nadie comprueba
+  todavía que el menú del móvil abra y cierre.
 
 ## Stack
 
 React 19 · Vite 6 · MUI 6 · React Router 7 · react-helmet-async ·
-Archivo, Inter y JetBrains Mono
+Vitest y Testing Library · Archivo, Inter y JetBrains Mono
