@@ -1,12 +1,20 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
-  base: '/', // 👈 Cambiado a '/' para Vercel (en GitHub Pages era '/Mi_Portfolio/')
+  base: '/',
   build: {
     outDir: 'dist',
+    rollupOptions: {
+      output: {
+        // Separa las dependencias del código propio: al publicar cambios
+        // de contenido, el navegador reutiliza el vendor ya cacheado.
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          mui: ['@mui/material', '@mui/icons-material'],
+        },
+      },
+    },
   },
-});
-
+})
