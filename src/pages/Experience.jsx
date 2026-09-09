@@ -1,155 +1,178 @@
 import { Helmet } from "react-helmet-async";
-import { Container, Typography, Box, Card, Grid, Chip } from "@mui/material";
-import { motion } from "framer-motion";
+import { Box, Container, Typography } from "@mui/material";
+import { color, font, size } from "../tokens";
 
-const experiences = [
+const reveal = (i = 0) => ({ className: "reveal", style: { "--delay": `${i * 60}ms` } });
+
+/**
+ * El laboratorio va en la misma línea de tiempo, no aparte.
+ * Dieciocho años de trabajo no son un prólogo: son la mitad larga de la tabla.
+ */
+const roles = [
   {
-    title: "Digital & Web Coordinator",
-    company: "Lucio J&M",
+    role: "Responsable de e-commerce",
+    org: "Lucio J&M",
     link: "https://www.luciojm.es",
-    date: "Dic 2025 - Actualidad",
-    description: "Gestión y mantenimiento de la plataforma web usando WordPress y Elementor. Implementación de mejoras de frontend personalizadas mediante HTML, CSS, JavaScript y PHP. Coordinación de integraciones externas y optimización CRO.",
-    skills: ["WordPress", "Elementor", "HTML/CSS", "JavaScript", "CRO"],
-    color: "#2563eb"
+    period: "Dic 2025 — hoy",
+    note: "Media jornada",
+    body: "Catálogo, capa visual, desarrollo a medida sobre WooCommerce, SEO, analítica y rendimiento de la tienda online de una casa de telas abierta en 1872.",
+    stack: ["WordPress", "WooCommerce", "Elementor", "PHP", "JavaScript", "SEO"],
   },
   {
-    title: "Frontend Developer",
-    company: "eTrivium",
+    role: "Frontend Developer",
+    org: "eTrivium",
     link: "https://etrivium.es/",
-    date: "Jul 2025 - Dic 2025",
-    description: "Contribución al crecimiento de la aplicación con nuevas funcionalidades, refactorización para un código más limpio y mejoras significativas en la experiencia de usuario (UX/UI).",
-    skills: ["React.js", "JavaScript", "UX/UI"],
-    color: "#4f46e5"
+    period: "Jul — Dic 2025",
+    body: "Funcionalidades nuevas y refactorización sobre una aplicación con usuarios reales, además de mejoras de interfaz.",
+    stack: ["React", "JavaScript", "UX/UI"],
   },
   {
-    title: "Frontend Developer (La Velada V)",
-    company: "midudev",
+    role: "Frontend Developer",
+    org: "La Velada del Año V — midudev",
     link: "https://github.com/midudev/la-velada-web-oficial",
-    date: "Abr 2025 - May 2025",
-    description: "Seleccionada entre casi 21.000 candidatos para colaborar en la web oficial de La Velada del Año V de Ibai Llanos, contribuyendo dentro de un equipo profesional liderado por Midudev.",
-    skills: ["Astro", "TypeScript", "Tailwind CSS"],
-    color: "#000000"
+    period: "Abr — May 2025",
+    body: "Web oficial del evento de Ibai Llanos. Unas 21.000 personas se presentaron para colaborar. Entré en el equipo.",
+    stack: ["Astro", "TypeScript", "Tailwind CSS"],
   },
   {
-    title: "Frontend Developer",
-    company: "AdoptaUnJunior",
-    link: "#",
-    date: "Oct 2024 - Dic 2024",
-    description: "Desarrollo del proyecto Cloudsolute. Aplicación de buenas prácticas con Next.js y TypeScript en un entorno real y colaborativo.",
-    skills: ["Next.js", "TypeScript", "React"],
-    color: "#4b5563"
-  }
+    role: "Frontend Developer",
+    org: "AdoptaUnJunior",
+    period: "Oct — Dic 2024",
+    body: "Proyecto Cloudsolute, en un entorno de equipo con las prácticas de un desarrollo real.",
+    stack: ["Next.js", "TypeScript", "React"],
+  },
+  {
+    role: "Técnica de laboratorio",
+    org: "Hospital",
+    period: "2006 — 2024",
+    note: "18 años",
+    body: "Manejo de los aparatos de laboratorio, extracciones de sangre y alta de pacientes en el sistema. Tres oficios distintos dentro del mismo puesto, y la costumbre de no soltar un problema hasta entenderlo entero.",
+    stack: ["Análisis clínico", "Instrumentación", "Trato con pacientes"],
+    past: true,
+  },
 ];
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1, transition: { staggerChildren: 0.15 } },
-};
-
-const itemVariants = {
-  hidden: { y: 30, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
-};
 
 export default function Experience() {
   return (
-    <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+    <Box component="main" sx={{ pt: { xs: 13, md: 18 }, pb: { xs: 8, md: 14 } }}>
       <Helmet>
-        <title>Experiencia | Alejandra Sánchez Frontend Developer</title>
-        <meta name="description" content="Trayectoria profesional de Alejandra Sánchez: Frontend Developer en eTrivium, colaboradora en La Velada del Año V (Midudev) y Digital Coordinator en Lucio J&M." />
+        <title>Trayectoria | Alejandra Sánchez</title>
+        <meta
+          name="description"
+          content="Trayectoria de Alejandra Sánchez: dieciocho años como técnica de laboratorio hospitalario y, desde 2023, desarrollo frontend en eTrivium, La Velada del Año V y Lucio J&M."
+        />
         <link rel="canonical" href="https://www.alejandrasanchezdev.es/experience" />
-        <meta property="og:title" content="Experiencia | Alejandra Sánchez" />
-        <meta property="og:url" content="https://www.alejandrasanchezdev.es/experience" />
       </Helmet>
-      <Container maxWidth="lg">
-        <motion.div variants={containerVariants} initial="hidden" animate="visible">
-          
-          <Box sx={{ mb: 8, textAlign: { xs: "center", md: "left" } }}>
-            <motion.div variants={itemVariants}>
-              <Typography 
-                variant="h1" 
-                sx={{ 
-                  fontSize: { xs: "3rem", sm: "4rem", md: "5rem" }, 
-                  fontWeight: 800, 
-                  lineHeight: 1.1, 
-                  letterSpacing: "-0.04em",
-                  color: "#111827",
-                }}
-              >
-                Experiencia <br />
-                <span style={{ 
-                  background: "linear-gradient(90deg, #2563eb 0%, #4f46e5 100%)",
-                  WebkitBackgroundClip: "text",
-                  WebkitTextFillColor: "transparent"
-                }}>
-                  Profesional
-                </span>
-              </Typography>
-            </motion.div>
-          </Box>
 
-          <Grid container spacing={4}>
-            {experiences.map((exp, index) => (
-              <Grid item xs={12} md={6} key={index}>
-                <motion.div variants={itemVariants} style={{ height: "100%" }}>
-                  <Card sx={{ 
-                    height: "100%",
-                    borderRadius: "32px", 
-                    p: { xs: 3, md: 5 }, 
-                    border: "1px solid #f3f4f6",
-                    boxShadow: "0 10px 30px -10px rgba(0, 0, 0, 0.05)",
-                    transition: "all 0.3s ease",
-                    "&:hover": {
-                      transform: "translateY(-5px)",
-                      boxShadow: "0 20px 40px -10px rgba(37, 99, 235, 0.1)",
-                      borderColor: "#e5e7eb"
-                    }
-                  }}>
-                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", mb: 2 }}>
-                      <Typography variant="h4" sx={{ color: "#111827", fontWeight: 800, letterSpacing: "-0.02em", mb: 1, width: "100%" }}>
-                        {exp.title}
-                      </Typography>
-                      <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                        <Typography 
-                          component="a" 
-                          href={exp.link} 
-                          target="_blank" 
-                          rel="noopener noreferrer" 
-                          sx={{ color: exp.color, fontWeight: 700, textDecoration: "none", fontSize: "1.1rem", "&:hover": { textDecoration: "underline" } }}
-                        >
-                          {exp.company}
-                        </Typography>
-                        <Typography variant="body2" sx={{ color: "#6b7280", fontWeight: 500 }}>
-                          • {exp.date}
-                        </Typography>
-                      </Box>
+      <Container>
+        <div {...reveal(0)}>
+          <Typography variant="overline" component="p" sx={{ color: color.inkMuted, mb: 3 }}>
+            Trayectoria
+          </Typography>
+        </div>
+        <div {...reveal(1)}>
+          <Typography variant="h1" component="h1" sx={{ color: color.ink, maxWidth: "16ch" }}>
+            Dos carreras, la misma cabeza.
+          </Typography>
+        </div>
+        <div {...reveal(2)}>
+          <Typography
+            sx={{ mt: 4, maxWidth: "54ch", fontSize: size.lead, lineHeight: 1.55, color: color.inkMuted }}
+          >
+            Empecé a programar por mi cuenta en 2023 y en 2024 hice un bootcamp. Antes de eso llevaba
+            dieciocho años trabajando, que también cuentan.
+          </Typography>
+        </div>
+
+        <Box component="ol" sx={{ listStyle: "none", p: 0, mt: { xs: 7, md: 10 } }}>
+          {roles.map((item, i) => (
+            <Box
+              component="li"
+              key={`${item.org}-${item.period}`}
+              {...reveal(i)}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "200px 1fr" },
+                gap: { xs: 1.5, md: 5 },
+                py: { xs: 4, md: 5 },
+                borderTop: `1px solid ${color.line}`,
+                // El puesto anterior se atenúa: sigue ahí, pero no compite.
+                opacity: item.past ? 0.75 : 1,
+              }}
+            >
+              <Box>
+                <Typography
+                  component="p"
+                  sx={{ fontFamily: font.mono, fontSize: size.label, color: color.ink, letterSpacing: "0.06em" }}
+                >
+                  {item.period}
+                </Typography>
+                {item.note && (
+                  <Typography
+                    component="p"
+                    sx={{ fontFamily: font.mono, fontSize: size.label, color: color.accent, mt: 0.8 }}
+                  >
+                    {item.note}
+                  </Typography>
+                )}
+              </Box>
+
+              <Box>
+                <Typography
+                  component="h2"
+                  sx={{ fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.02em", fontSize: size.h3, color: color.ink, lineHeight: 1.2 }}
+                >
+                  {item.role}
+                </Typography>
+
+                <Typography component="p" sx={{ mt: 0.5, fontSize: size.small, color: color.inkMuted }}>
+                  {item.link ? (
+                    <Box
+                      component="a"
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: color.inkMuted,
+                        textDecoration: "underline",
+                        textDecorationColor: color.line,
+                        textUnderlineOffset: "0.2em",
+                        "&:hover": { color: color.accent, textDecorationColor: color.accent },
+                      }}
+                    >
+                      {item.org}
                     </Box>
-                    
-                    <Typography variant="body1" sx={{ color: "#4b5563", mb: 4, lineHeight: 1.7, fontSize: "1.05rem" }}>
-                      {exp.description}
+                  ) : (
+                    item.org
+                  )}
+                </Typography>
+
+                <Typography sx={{ mt: 2, color: color.inkMuted, fontSize: size.body, maxWidth: "60ch" }}>
+                  {item.body}
+                </Typography>
+
+                <Box sx={{ mt: 2.5, display: "flex", flexWrap: "wrap", gap: 1 }}>
+                  {item.stack.map((tech) => (
+                    <Typography
+                      key={tech}
+                      component="span"
+                      sx={{
+                        fontFamily: font.mono,
+                        fontSize: size.label,
+                        color: color.inkMuted,
+                        border: `1px solid ${color.line}`,
+                        px: 1.2,
+                        py: 0.5,
+                      }}
+                    >
+                      {tech}
                     </Typography>
-                    
-                    <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1, mt: "auto" }}>
-                      {exp.skills.map((skill, i) => (
-                        <Chip 
-                          key={i} 
-                          label={skill} 
-                          sx={{ 
-                            backgroundColor: "#f3f4f6", 
-                            color: "#111827", 
-                            fontWeight: 600,
-                            borderRadius: "12px",
-                            "&:hover": { backgroundColor: exp.color, color: "#fff" }
-                          }} 
-                        />
-                      ))}
-                    </Box>
-                  </Card>
-                </motion.div>
-              </Grid>
-            ))}
-          </Grid>
-        </motion.div>
+                  ))}
+                </Box>
+              </Box>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );

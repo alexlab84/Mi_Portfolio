@@ -1,177 +1,218 @@
 import { Helmet } from "react-helmet-async";
-import { Container, Typography, Box, Grid, Card, Avatar } from "@mui/material";
-import { motion } from "framer-motion";
+import { Box, Container, Typography } from "@mui/material";
+import { color, font, size } from "../tokens";
+import retrato from "../assets/alejandra-blanco.webp";
 
-import avatarImage from "../assets/alejandra-blanco.webp";
-import htmlIcon from "../assets/html-5.webp";
-import cssIcon from "../assets/css-3.webp";
-import jsIcon from "../assets/js.webp";
-import reactIcon from "../assets/react.webp";
-import pythonIcon from "../assets/piton.webp";
-import djangoIcon from "../assets/django.webp";
-import materialuiIcon from "../assets/material-ui.webp";
+const reveal = (i = 0) => ({ className: "reveal", style: { "--delay": `${i * 70}ms` } });
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 },
-  },
-};
-
-const itemVariants = {
-  hidden: { y: 30, opacity: 0 },
-  visible: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
+const stack = {
+  "Con lo que trabajo a diario": ["WordPress", "WooCommerce", "Elementor", "PHP", "JavaScript", "CSS"],
+  "Con lo que he construido producto": ["React", "Astro", "TypeScript", "Next.js", "Tailwind"],
+  "Lo que mido": ["Search Console", "Analytics", "Merchant Center", "PageSpeed", "SEO"],
+  "Con lo que me ayudo": ["Claude Code", "MCP", "APIs REST"],
+  "Lo demás": ["Python", "Django", "PostgreSQL", "Git", "Docker"],
 };
 
 export default function About() {
   return (
-    <Box sx={{ pt: { xs: 12, md: 16 }, pb: 8, minHeight: "100vh" }}>
+    <Box component="main" sx={{ pt: { xs: 13, md: 18 }, pb: { xs: 8, md: 14 } }}>
       <Helmet>
-        <title>Sobre Mí | Alejandra Sánchez Frontend Developer</title>
-        <meta name="description" content="Conoce a Alejandra Sánchez: Frontend Developer con background en laboratorio clínico, colaboradora en La Velada del Año V y responsable digital de Lucio J&M." />
+        <title>Sobre mí | Alejandra Sánchez</title>
+        <meta
+          name="description"
+          content="Alejandra Sánchez: dieciocho años como técnica de laboratorio hospitalario y, desde 2023, desarrollo frontend. Me gusta hacerme cargo del asunto entero."
+        />
         <link rel="canonical" href="https://www.alejandrasanchezdev.es/about" />
-        <meta property="og:title" content="Sobre Mí | Alejandra Sánchez" />
-        <meta property="og:url" content="https://www.alejandrasanchezdev.es/about" />
       </Helmet>
-      <Container maxWidth="lg">
-        <motion.div variants={containerVariants} initial="hidden" animate="visible">
-          
-          <Grid container spacing={4} alignItems="stretch">
-            {/* TEXT COLUMN */}
-            <Grid item xs={12} md={7} sx={{ display: "flex", flexDirection: "column", order: { xs: 2, md: 1 } }}>
-              <motion.div variants={itemVariants} style={{ flex: 1, display: "flex", flexDirection: "column" }}>
-                <Typography 
-                  variant="h1" 
-                  sx={{ 
-                    fontSize: { xs: "3rem", sm: "4rem", md: "5rem" }, 
-                    fontWeight: 800, 
-                    lineHeight: 1.1, 
-                    letterSpacing: "-0.04em",
-                    color: "#111827",
-                    mb: 4
-                  }}
-                >
-                  Conectando <br />
-                  <span style={{ 
-                    background: "linear-gradient(90deg, #2563eb 0%, #4f46e5 100%)",
-                    WebkitBackgroundClip: "text",
-                    WebkitTextFillColor: "transparent"
-                  }}>
-                    funcionalidad
-                  </span><br />
-                  con estética
-                </Typography>
 
-                <Card sx={{ 
-                  p: { xs: 4, md: 5 }, 
-                  borderRadius: "32px", 
-                  background: "rgba(255, 255, 255, 0.7)", 
-                  backdropFilter: "blur(20px)",
-                  border: "1px solid #f3f4f6",
-                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.05)",
-                  flex: 1
-                }}>
-                  <Typography variant="body1" sx={{ color: "#4b5563", fontSize: "1.1rem", lineHeight: 1.8, mb: 3 }}>
-                    Soy una desarrolladora web apasionada por crear interfaces digitales que destaquen tanto por su <b>estética premium</b> como por su <b>rendimiento</b>.
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: "#4b5563", fontSize: "1.1rem", lineHeight: 1.8, mb: 3 }}>
-                    Mi enfoque principal es el desarrollo Frontend, donde combino mi creatividad con un sólido conocimiento técnico para construir experiencias de usuario excepcionales que conviertan visitas en clientes.
-                  </Typography>
-                  <Typography variant="body1" sx={{ color: "#4b5563", fontSize: "1.1rem", lineHeight: 1.8 }}>
-                    Vengo del mundo del laboratorio clínico, lo que me ha dado una capacidad analítica brutal que ahora aplico al código. A lo largo de mi trayectoria he colaborado en proyectos de alto impacto como <b>La Velada del Año V</b> de Ibai Llanos (junto a Midudev) y actualmente coordino toda la estrategia digital y e-commerce de la marca premium <b>Lucio J&M</b>.
-                  </Typography>
-                </Card>
-              </motion.div>
-            </Grid>
-            
-            {/* IMAGE COLUMN */}
-            <Grid item xs={12} md={5} sx={{ display: "flex", order: { xs: 1, md: 2 } }}>
-              <motion.div variants={itemVariants} style={{ width: "100%", display: "flex" }}>
-                <Card sx={{ 
-                  width: "100%",
-                  minHeight: { xs: "400px", md: "100%" },
-                  borderRadius: "32px", 
-                  border: "1px solid #f3f4f6",
-                  boxShadow: "0 20px 40px -10px rgba(0, 0, 0, 0.05)",
-                  overflow: "hidden",
-                  position: "relative",
-                  background: "#fff"
-                }}>
-                  <Box 
-                    component="img" 
-                    src={avatarImage} 
-                    sx={{ 
-                      position: "absolute",
-                      width: "100%", 
-                      height: "100%", 
-                      objectFit: "cover",
-                      objectPosition: "center top"
-                    }} 
-                  />
-                  {/* Subtle gradient overlay at the bottom for premium feel */}
-                  <Box sx={{
-                    position: "absolute",
-                    bottom: 0, left: 0, right: 0, height: "30%",
-                    background: "linear-gradient(to top, rgba(0,0,0,0.1), transparent)"
-                  }} />
-                </Card>
-              </motion.div>
-            </Grid>
-          </Grid>
+      <Container>
+        <div {...reveal(0)}>
+          <Typography variant="overline" component="p" sx={{ color: color.inkMuted, mb: 3 }}>
+            Sobre mí
+          </Typography>
+        </div>
+        <div {...reveal(1)}>
+          <Typography variant="h1" component="h1" sx={{ color: color.ink, maxWidth: "16ch" }}>
+            Me gusta enterarme de cómo funciona todo.
+          </Typography>
+        </div>
 
-          <Box sx={{ mt: 10 }}>
-            <motion.div variants={itemVariants}>
-              <Typography variant="h4" sx={{ fontWeight: 800, mb: 6, color: "#111827", letterSpacing: "-0.02em", textAlign: "center" }}>
-                El Ecosistema que manejo
-              </Typography>
-            </motion.div>
-            
-            <motion.div variants={itemVariants}>
-              <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 3 }}>
-                {[
-                  { src: htmlIcon, alt: "HTML5" },
-                  { src: cssIcon, alt: "CSS3" },
-                  { src: jsIcon, alt: "JavaScript" },
-                  { src: reactIcon, alt: "React" },
-                  { src: materialuiIcon, alt: "Material-UI" },
-                  { src: "https://cdn.simpleicons.org/wordpress/21759b", alt: "WordPress" },
-                  { src: "https://cdn.simpleicons.org/elementor/92003B", alt: "Elementor" },
-                  { src: "https://cdn.simpleicons.org/woocommerce/96588a", alt: "WooCommerce" },
-                  { src: pythonIcon, alt: "Python" },
-                  { src: djangoIcon, alt: "Django" },
-                ].map((tech, index) => (
-                  <Box 
-                    key={index}
-                    sx={{
-                      width: { xs: 70, md: 90 }, 
-                      height: { xs: 70, md: 90 }, 
-                      borderRadius: "24px", 
-                      background: "#ffffff", 
-                      border: "1px solid #e5e7eb",
-                      display: "flex", alignItems: "center", justifyContent: "center",
-                      boxShadow: "0 4px 10px rgba(0,0,0,0.02)",
-                      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-                      "&:hover": { 
-                        transform: "translateY(-10px) scale(1.05)", 
-                        borderColor: "#2563eb", 
-                        boxShadow: "0 15px 25px -5px rgba(37, 99, 235, 0.15)" 
-                      }
-                    }}
-                  >
-                    <img
-                      src={tech.src}
-                      alt={tech.alt}
-                      title={tech.alt}
-                      style={{ width: "50%", height: "50%", objectFit: "contain" }}
-                    />
-                  </Box>
-                ))}
-              </Box>
-            </motion.div>
+        <Box
+          sx={{
+            mt: { xs: 6, md: 10 },
+            display: "grid",
+            gridTemplateColumns: { xs: "1fr", md: "1.35fr 1fr" },
+            gap: { xs: 5, md: 8 },
+            alignItems: "start",
+          }}
+        >
+          {/* ── Texto ── */}
+          <Box {...reveal(2)}>
+            {/* Párrafo de entrada, en serif y algo mayor: marca el tono. */}
+            <Typography
+              sx={{
+                fontFamily: font.display,
+                fontWeight: 500,
+                letterSpacing: "-0.015em",
+                fontSize: size.h3,
+                lineHeight: 1.4,
+                color: color.ink,
+                mb: 4,
+              }}
+            >
+              Durante dieciocho años fui técnica de laboratorio en un hospital. Manejaba los
+              aparatos, hacía extracciones de sangre y daba de alta a pacientes en el sistema.
+            </Typography>
+
+            <Typography sx={{ color: color.inkMuted, fontSize: size.body, mb: 3, maxWidth: "62ch" }}>
+              Eran tres oficios distintos dentro del mismo puesto, y ésa fue siempre la parte que más
+              me gustaba. Lo que se me da bien no es una tecnología concreta: es agarrar un asunto
+              entero y no soltarlo hasta saber de qué va.
+            </Typography>
+
+            <Typography sx={{ color: color.inkMuted, fontSize: size.body, mb: 3, maxWidth: "62ch" }}>
+              En Lucio J&amp;M entré para llevar la web. Acabé llevando también el catálogo, el SEO,
+              la analítica y el rendimiento. No porque me lo pidieran, sino porque no sé hacerlo de
+              otra manera: si algo forma parte de que la tienda venda, quiero saber cómo está montado.
+            </Typography>
+
+            <Typography sx={{ color: color.inkMuted, fontSize: size.body, maxWidth: "62ch" }}>
+              Empecé a programar por mi cuenta en 2023 y en 2024 hice un bootcamp. Vengo de un sitio
+              donde un decimal mal leído tiene consecuencias, así que reviso las cosas dos veces.
+            </Typography>
           </Box>
 
-        </motion.div>
+          {/* ── Retrato ── */}
+          <Box
+            {...reveal(3)}
+            component="img"
+            src={retrato}
+            alt="Retrato de Alejandra Sánchez"
+            width={1200}
+            height={800}
+            loading="lazy"
+            decoding="async"
+            sx={{
+              display: "block",
+              width: "100%",
+              aspectRatio: { xs: "4 / 3", md: "3 / 4" },
+              objectFit: "cover",
+              objectPosition: "center 35%",
+              backgroundColor: color.surface,
+              border: `1px solid ${color.line}`,
+            }}
+          />
+        </Box>
+
+        {/* ── Cómo trabajo ──
+            Lo concreto es lo que hace creíble esta sección.
+            "Uso IA" no dice nada; "MCP contra el CMS" sí. */}
+        <Box component="section" sx={{ mt: { xs: 9, md: 14 } }}>
+          <div {...reveal(0)}>
+            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 3 }}>
+              Cómo trabajo
+            </Typography>
+          </div>
+
+          <div {...reveal(1)}>
+            <Typography
+              sx={{
+                fontFamily: font.display,
+                fontWeight: 500,
+                letterSpacing: "-0.015em",
+                fontSize: size.h3,
+                lineHeight: 1.4,
+                color: color.ink,
+                maxWidth: "40ch",
+                mb: 5,
+              }}
+            >
+              Trabajo con Claude todos los días. No copiando respuestas: dándole acceso a las cosas.
+            </Typography>
+          </div>
+
+          {[
+            {
+              term: "Conectado al CMS",
+              body: "Tengo Claude enchufado a WordPress por MCP. Crea y actualiza contenido, sube media, audita SEO, genera y valida schema, mide rendimiento y gestiona la caché directamente sobre el sitio. No le pido texto para pegar a mano: trabaja contra la tienda.",
+            },
+            {
+              term: "Llamadas a APIs",
+              body: "Integraciones entre el CMS y servicios externos, y snippets propios cuando lo que hace falta no existe como plugin.",
+            },
+            {
+              term: "Saber pedir",
+              body: "La mitad del oficio ahora es dar buenas instrucciones: acotar la tarea, dar el contexto justo y decir también qué no hacer. Es una habilidad, y la estoy afilando.",
+            },
+            {
+              term: "Que se acuerde",
+              body: "Lo que repito queda guardado para no volver a explicarlo cada vez. Con el tiempo se convierte en una forma de trabajar, no en una conversación suelta.",
+            },
+          ].map((item, i) => (
+            <Box
+              key={item.term}
+              {...reveal(i + 2)}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "280px 1fr" },
+                gap: { xs: 1, md: 5 },
+                py: { xs: 3, md: 3.5 },
+                borderTop: `1px solid ${color.line}`,
+              }}
+            >
+              <Typography sx={{ color: color.ink, fontSize: size.body, fontWeight: 500 }}>
+                {item.term}
+              </Typography>
+              <Typography sx={{ color: color.inkMuted, fontSize: size.body, maxWidth: "62ch" }}>
+                {item.body}
+              </Typography>
+            </Box>
+          ))}
+        </Box>
+
+        {/* ── Herramientas, agrupadas por para qué sirven ── */}
+        <Box component="section" sx={{ mt: { xs: 9, md: 14 } }}>
+          <div {...reveal(0)}>
+            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 1 }}>
+              Herramientas
+            </Typography>
+          </div>
+
+          {Object.entries(stack).map(([group, items], i) => (
+            <Box
+              key={group}
+              {...reveal(i + 1)}
+              sx={{
+                display: "grid",
+                gridTemplateColumns: { xs: "1fr", md: "280px 1fr" },
+                gap: { xs: 1.5, md: 5 },
+                py: { xs: 3, md: 3.5 },
+                borderTop: `1px solid ${color.line}`,
+                alignItems: "baseline",
+              }}
+            >
+              <Typography sx={{ color: color.ink, fontSize: size.body }}>{group}</Typography>
+              <Box sx={{ display: "flex", flexWrap: "wrap", gap: 1 }}>
+                {items.map((tech) => (
+                  <Typography
+                    key={tech}
+                    component="span"
+                    sx={{
+                      fontFamily: font.mono,
+                      fontSize: size.label,
+                      color: color.inkMuted,
+                      border: `1px solid ${color.line}`,
+                      px: 1.2,
+                      py: 0.5,
+                    }}
+                  >
+                    {tech}
+                  </Typography>
+                ))}
+              </Box>
+            </Box>
+          ))}
+        </Box>
       </Container>
     </Box>
   );
