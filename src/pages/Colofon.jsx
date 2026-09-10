@@ -1,10 +1,15 @@
-import { Helmet } from "react-helmet-async";
-import { Box, Container, Typography } from "@mui/material";
-import { color, font, size } from "../tokens";
+import { useHead } from "../useHead";
+import { reveal } from "../reveal";
 
-const reveal = (i = 0) => ({ className: "reveal", style: { "--delay": `${i * 60}ms` } });
+const contrastes = [
+  ["Texto principal", "18,5:1"],
+  ["Texto secundario", "5,4:1"],
+  ["Acento sobre papel", "4,96:1"],
+  ["Texto sobre bloque oscuro", "16,5:1"],
+  ["Bordes de botón", "3,2:1"],
+];
 
-const sections = [
+const secciones = [
   {
     title: "Tipografía",
     items: [
@@ -23,18 +28,19 @@ const sections = [
   {
     title: "Rendimiento",
     items: [
-      "Unos 136 kB comprimidos en la primera carga.",
+      "Sin librería de componentes ni motor de estilos en tiempo de ejecución. Todo es CSS con custom properties, así que el navegador no descarga JavaScript para pintar un botón.",
+      "La primera carga son 78 kB comprimidos. Eran 136, y 119 de ellos eran Material UI y Emotion: doce componentes de los que once eran un div con estilos. Para un panel con tablas y formularios habrían valido la pena; para seis páginas de texto, no. Lo que queda es casi todo React, que es el suelo de una aplicación de este tipo.",
       "Una ruta, un fragmento: solo se descarga la página que se visita.",
-      "Imágenes en WebP y guardadas al tamaño en que se pintan, no al que salieron de la cámara.",
-      "Ninguna librería de animación. Lo hace el CSS.",
+      "Imágenes en WebP y guardadas al tamaño en que se pintan, no al que salieron de la cámara. Los tres iconos de la interfaz van en línea como SVG.",
     ],
   },
   {
     title: "Verificación",
     items: [
-      "Los contrastes de la tabla de arriba no están escritos a mano: los comprueba un test en cada push. Si alguien cambia un color y deja de cumplir, el CI se pone rojo antes de que llegue a producción.",
-      "Ese test existe porque el borde de los botones estuvo a 1,56:1 cuando la norma pide 3:1, y no lo detectó nadie hasta que lo medí a la mano. Las cosas que dependen de que alguien se acuerde de mirarlas, tarde o temprano fallan.",
-      "El resto de tests cubren lo que se rompe sin avisar: que haya un solo h1 por página, que la ficha del hero siga siendo una lista de definiciones con sus pares completos, que el gráfico del caso de Lucio mantenga su descripción en texto, y que la navegación marque la página actual.",
+      "Los contrastes de la tabla de arriba no están escritos a mano: los comprueba un test que lee el propio archivo de tokens en cada push. Si alguien cambia un color y deja de cumplir, el CI se pone rojo antes de que llegue a producción.",
+      "Ese test existe porque el borde de los botones estuvo a 1,56:1 cuando la norma pide 3:1, y no lo detectó nadie hasta que lo medí a mano. Las cosas que dependen de que alguien se acuerde de mirarlas, tarde o temprano fallan.",
+      "El resto de los 33 tests cubren lo que se rompe sin avisar: que haya un solo h1 por página, que la ficha de la portada siga siendo una lista de definiciones con sus pares completos, que el gráfico del caso de Lucio mantenga su descripción en texto, y que la navegación marque la página actual.",
+      "Y el menú del móvil, que está escrito a mano: que abra, que cierre con Escape, con el fondo y al elegir un enlace, que bloquee el scroll de detrás y que lo restaure al salir. Cuando venía de una librería se daba por bueno; ahora es mío y se comprueba.",
       "En cada push se ejecutan linter, tests y build. Que compile es parte de que funcione, y eso no lo detecta ni el linter ni los tests.",
     ],
   },
@@ -42,162 +48,100 @@ const sections = [
     title: "Interfaz",
     items: [
       "HTML con significado: la ficha de la portada es una lista de definiciones, la trayectoria una lista ordenada, y el gráfico del caso de Lucio lleva su descripción escrita para quien no lo ve.",
-      "El foco del teclado es visible en toda la web. Se puede recorrer entera sin ratón.",
+      "El foco del teclado es visible en toda la web. Se puede recorrer entera sin ratón, y el menú del móvil se cierra con Escape.",
       "La navegación marca la página actual, y al cambiar de página el scroll vuelve arriba en lugar de dejarte a media altura.",
     ],
   },
 ];
 
-const contrasts = [
-  ["Texto principal", "18,5:1"],
-  ["Texto secundario", "5,4:1"],
-  ["Acento sobre papel", "4,96:1"],
-  ["Texto sobre bloque oscuro", "16,5:1"],
-  ["Bordes de botón", "3,2:1"],
-];
-
-const missing = [
+const falta = [
   "No hay modo oscuro.",
   "El contacto son enlaces, no un formulario.",
-  "136 kB siguen siendo muchos para seis páginas que son casi todo texto. Es el precio de la librería de componentes, y se puede bajar.",
-  "Los tests cubren los tokens y el marcado, no el comportamiento: nadie comprueba todavía que el menú del móvil abra y cierre.",
+  "Los 78 kB son casi todos React. Bajar de ahí significaría salirse de React, y eso ya no es optimizar: es cambiar de herramienta.",
 ];
 
 export default function Colofon() {
+  useHead({
+    title: "Cómo está hecha esta web | Alejandra Sánchez",
+    description:
+      "Las decisiones detrás de este portfolio: tipografía fluida, contrastes verificados por test, movimiento opcional, cero CSS en tiempo de ejecución. Y lo que le falta.",
+    canonical: "https://www.alejandrasanchezdev.es/colofon",
+  });
+
   return (
-    <Box component="main" sx={{ pt: { xs: 13, md: 18 }, pb: { xs: 8, md: 14 } }}>
-      <Helmet>
-        <title>Cómo está hecha esta web | Alejandra Sánchez</title>
-        <meta
-          name="description"
-          content="Las decisiones detrás de este portfolio: tipografía fluida, contrastes medidos, movimiento opcional, rendimiento y accesibilidad. Y lo que le falta."
-        />
-        <link rel="canonical" href="https://www.alejandrasanchezdev.es/colofon" />
-      </Helmet>
+    <main className="page">
+      <div className="container">
+        <p {...reveal(0, "kicker")}>Colofón</p>
+        <h1 {...reveal(1, "display")} style={{ marginBlockStart: "0.7rem", maxWidth: "15ch" }}>
+          Cómo está hecha esta web.
+        </h1>
+        <p {...reveal(2, "lead")} style={{ marginBlockStart: "1.75rem", maxWidth: "56ch" }}>
+          Un portfolio que habla de criterio debería poder enseñarlo. Esto es lo que hay debajo de
+          esta página, incluido lo que todavía no está bien.
+        </p>
 
-      <Container>
-        <div {...reveal(0)}>
-          <Typography variant="overline" component="p" sx={{ color: color.inkMuted, mb: 3 }}>
-            Colofón
-          </Typography>
-        </div>
-        <div {...reveal(1)}>
-          <Typography variant="h1" component="h1" sx={{ color: color.ink, maxWidth: "15ch" }}>
-            Cómo está hecha esta web.
-          </Typography>
-        </div>
-        <div {...reveal(2)}>
-          <Typography
-            sx={{ mt: 4, maxWidth: "56ch", fontSize: size.lead, lineHeight: 1.55, color: color.inkMuted }}
-          >
-            Un portfolio que habla de criterio debería poder enseñarlo. Esto es lo que hay debajo de
-            esta página, incluido lo que todavía no está bien.
-          </Typography>
-        </div>
-
-        {/* ── Color y contraste ── */}
-        <Box component="section" sx={{ mt: { xs: 8, md: 12 } }}>
-          <div {...reveal(0)}>
-            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 1 }}>
-              Color
-            </Typography>
-          </div>
-          <Box sx={{
-            display: "grid", gridTemplateColumns: { xs: "1fr", md: "260px 1fr" },
-            gap: { xs: 2, md: 5 }, py: { xs: 3.5, md: 4.5 }, borderTop: `1px solid ${color.line}`,
-          }}>
-            <Typography component="h3" sx={{
-              fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.02em",
-              fontSize: size.h3, color: color.ink, lineHeight: 1.2,
-            }}>
-              Un solo acento
-            </Typography>
-            <Box>
-              <Typography sx={{ color: color.inkMuted, fontSize: size.body, maxWidth: "62ch", mb: 3 }}>
-                Todo el color de la web sale de un único archivo. Cambiar este naranja por otro es
-                cambiar una línea. Los contrastes están <Box component="em" sx={{ fontStyle: "normal", color: color.ink }}>medidos</Box>,
-                no estimados a ojo: la norma AA pide 4,5:1 para texto y 3:1 para el borde de un control. Y los verifica un test, así que siguen siendo verdad.
-              </Typography>
-              <Box component="dl" sx={{ m: 0, borderTop: `1px solid ${color.line}`, maxWidth: "440px" }}>
-                {contrasts.map(([label, value]) => (
-                  <Box key={label} sx={{
-                    display: "flex", justifyContent: "space-between", gap: 2,
-                    py: 1.4, borderBottom: `1px solid ${color.line}`,
-                  }}>
-                    <Typography component="dt" sx={{ fontSize: size.small, color: color.inkMuted }}>
-                      {label}
-                    </Typography>
-                    <Typography component="dd" sx={{
-                      m: 0, fontFamily: font.mono, fontSize: size.small, color: color.ink,
-                    }}>
-                      {value}
-                    </Typography>
-                  </Box>
-                ))}
-              </Box>
-            </Box>
-          </Box>
-        </Box>
-
-        {/* ── Resto de secciones ── */}
-        {sections.map((section) => (
-          <Box component="section" key={section.title} sx={{ mt: { xs: 6, md: 9 } }}>
-            <div {...reveal(0)}>
-              <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 1 }}>
-                {section.title}
-              </Typography>
+        <section className="section">
+          <h2 {...reveal(0, "kicker")}>Color</h2>
+          <div className="rows" style={{ marginBlockStart: "0.5rem" }}>
+            <div className="row row--wide">
+              <h3 className="h3">Un solo acento</h3>
+              <div>
+                <p className="muted" style={{ maxWidth: "62ch", marginBlockEnd: "1.5rem" }}>
+                  Todo el color de la web sale de un único archivo de CSS. Cambiar este naranja por
+                  otro es cambiar una línea. Los contrastes están{" "}
+                  <span style={{ color: "var(--ink)" }}>medidos</span>, no estimados a ojo: la norma
+                  AA pide 4,5:1 para texto y 3:1 para el borde de un control. Y los verifica un test,
+                  así que siguen siendo verdad.
+                </p>
+                <dl className="meta" style={{ maxWidth: 440 }}>
+                  {contrastes.map(([k, v]) => (
+                    <div className="meta__row" key={k}>
+                      <dt className="small muted">{k}</dt>
+                      <dd className="mono" style={{ color: "var(--ink)" }}>{v}</dd>
+                    </div>
+                  ))}
+                </dl>
+              </div>
             </div>
-            {section.items.map((item, i) => (
-              <Box key={i} {...reveal(i + 1)} sx={{
-                display: "grid", gridTemplateColumns: { xs: "1fr", md: "48px 1fr" },
-                gap: { xs: 1, md: 4 }, py: { xs: 2.5, md: 3 },
-                borderTop: `1px solid ${color.line}`,
-              }}>
-                <Typography component="span" sx={{
-                  fontFamily: font.mono, fontSize: size.label, color: color.accent, pt: 0.5,
-                }}>
-                  {String(i + 1).padStart(2, "0")}
-                </Typography>
-                <Typography sx={{ color: color.inkMuted, fontSize: size.body, maxWidth: "64ch" }}>
-                  {item}
-                </Typography>
-              </Box>
-            ))}
-          </Box>
+          </div>
+        </section>
+
+        {secciones.map((s) => (
+          <section className="section--tight" key={s.title}>
+            <h2 {...reveal(0, "kicker")}>{s.title}</h2>
+            <div className="rows" style={{ marginBlockStart: "0.5rem" }}>
+              {s.items.map((item, i) => (
+                <div className="row row--narrow" key={i} {...reveal(i + 1)}>
+                  <span className="mono accent">{String(i + 1).padStart(2, "0")}</span>
+                  <p className="row__body">{item}</p>
+                </div>
+              ))}
+            </div>
+          </section>
         ))}
 
-        {/* ── Lo que falta ── */}
-        <Box component="section" {...reveal(1)} sx={{
-          mt: { xs: 8, md: 12 }, py: { xs: 5, md: 7 }, px: { xs: 3.5, md: 6 },
-          backgroundColor: color.inkBlock, color: color.onInk,
-        }}>
-          <Typography variant="overline" component="h2" sx={{ color: color.onInkMuted, mb: 3 }}>
-            Lo que le falta
-          </Typography>
-          <Typography sx={{
-            fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.03em",
-            fontSize: size.h2, lineHeight: 1.08, maxWidth: "20ch", mb: 4,
-          }}>
+        <section {...reveal(1, "block section")}>
+          <h2 className="kicker">Lo que le falta</h2>
+          <p className="h2" style={{ marginBlock: "1.25rem 2rem", maxWidth: "20ch" }}>
             Nada de esto está terminado.
-          </Typography>
-          <Box component="ul" sx={{ m: 0, p: 0, listStyle: "none" }}>
-            {missing.map((item) => (
-              <Box component="li" key={item} sx={{
-                py: 2, borderTop: "1px solid rgba(245,242,238,.16)",
-                color: color.onInkMuted, fontSize: size.body, maxWidth: "58ch",
-              }}>
-                {item}
-              </Box>
+          </p>
+          <ul>
+            {falta.map((f) => (
+              <li
+                key={f}
+                className="muted"
+                style={{ paddingBlock: "1rem", borderTop: "1px solid rgb(245 242 238 / 0.16)", maxWidth: "58ch" }}
+              >
+                {f}
+              </li>
             ))}
-          </Box>
-        </Box>
+          </ul>
+        </section>
 
-        <div {...reveal(2)}>
-          <Typography sx={{ mt: 5, fontSize: size.small, color: color.inkMuted }}>
-            React · Vite · MUI · Escrita con Claude Code, en el editor.
-          </Typography>
-        </div>
-      </Container>
-    </Box>
+        <p className="small muted" style={{ marginBlockStart: "2.5rem" }}>
+          React · Vite · React Router · react-helmet-async · Vitest · CSS a mano.
+        </p>
+      </div>
+    </main>
   );
 }
