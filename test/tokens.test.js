@@ -1,5 +1,5 @@
 import { describe, it, expect } from "vitest";
-import { color } from "../src/tokens";
+import { color, COLORES_ESPERADOS } from "./tokens";
 import { contrast } from "./contrast";
 
 /**
@@ -18,9 +18,9 @@ const CONTROL = 3;      // 1.4.11 — contorno de un elemento interactivo
 
 const sobrePapel = [
   ["texto principal", color.ink],
-  ["texto secundario", color.inkMuted],
+  ["texto secundario", color['ink-muted']],
   ["acento", color.accent],
-  ["acento oscuro (hover)", color.accentInk],
+  ["acento oscuro (hover)", color['accent-ink']],
 ];
 
 describe("contraste del texto sobre los fondos claros", () => {
@@ -36,15 +36,15 @@ describe("contraste del texto sobre los fondos claros", () => {
 
 describe("contraste sobre el bloque oscuro", () => {
   it("el texto principal cumple AA", () => {
-    expect(contrast(color.onInk, color.inkBlock)).toBeGreaterThanOrEqual(TEXTO);
+    expect(contrast(color['on-ink'], color['ink-block'])).toBeGreaterThanOrEqual(TEXTO);
   });
   it("el texto atenuado cumple AA", () => {
-    expect(contrast(color.onInkMuted, color.inkBlock)).toBeGreaterThanOrEqual(TEXTO);
+    expect(contrast(color['on-ink-muted'], color['ink-block'])).toBeGreaterThanOrEqual(TEXTO);
   });
   it("el acento se usa sobre claro, no sobre el bloque oscuro", () => {
     // Aquí no se afirma que cumpla: se documenta que NO llega, y por eso
     // en los bloques oscuros el acento no se usa para texto.
-    expect(contrast(color.accent, color.inkBlock)).toBeLessThan(TEXTO);
+    expect(contrast(color.accent, color['ink-block'])).toBeLessThan(TEXTO);
   });
 });
 
@@ -60,7 +60,7 @@ describe("contraste de los contornos de control (WCAG 1.4.11)", () => {
     // un control. Si algún día se usan para un borde interactivo, este test
     // recuerda que hay que usar `control`.
     expect(contrast(color.line, color.bg)).toBeLessThan(CONTROL);
-    expect(contrast(color.lineStrong, color.bg)).toBeLessThan(CONTROL);
+    expect(contrast(color['line-strong'], color.bg)).toBeLessThan(CONTROL);
   });
 });
 
@@ -71,6 +71,11 @@ describe("el acento como texto grande", () => {
 });
 
 describe("forma de los tokens", () => {
+  it("la extracción del CSS ha encontrado todos los colores", () => {
+    // Salvaguarda: si esto fallara, los tests de abajo pasarían en vacío.
+    expect(Object.keys(color)).toHaveLength(COLORES_ESPERADOS);
+  });
+
   it("todos los colores son hexadecimales de seis dígitos", () => {
     for (const [nombre, valor] of Object.entries(color)) {
       expect(valor, nombre).toMatch(/^#[0-9A-Fa-f]{6}$/);

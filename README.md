@@ -24,8 +24,12 @@ resultado con Nginx, por si hace falta desplegarlo fuera de Vercel.
 
 ```
 src/
-├── tokens.js          color, tipografía, espacio y radios. Fuente única.
-├── theme.js           el tema de MUI, construido a partir de los tokens
+├── styles/
+│   ├── tokens.css     color, tipografía y espacio. Fuente única.
+│   ├── base.css       reset, tipografía base y el revelado de entrada
+│   └── app.css        clases de composición y componentes
+├── useHead.js         título y metadatos por página
+├── reveal.js          props del revelado escalonado
 ├── App.jsx            rutas, con carga diferida por página
 ├── components/
 │   ├── NavBar.jsx
@@ -61,16 +65,25 @@ secundario, 4,96:1 el acento y 3,18:1 el borde de los controles — este
 interactivo, y se quedaba en 1,56:1. La tabla completa está en
 [/colofon](https://www.alejandrasanchezdev.es/colofon).
 
+**Sin librería de componentes ni CSS en tiempo de ejecución.** Todo son
+custom properties y clases en tres archivos de CSS. Antes eran 136 kB
+comprimidos en la primera carga, de los que 119 eran MUI y Emotion: doce
+componentes de los que once eran un `div` con estilos. Ahora son 78 kB, y
+lo que queda es casi todo React. Los tres iconos van en línea como SVG y
+el título y los metadatos por página los pone un hook de treinta líneas
+en lugar de react-helmet-async.
+
 **Una ruta, un fragmento.** Cada página se descarga al visitarla, y las
 dependencias van en su propio bloque para que el caché sobreviva a los
-cambios de contenido. Carga inicial: unos 136 kB comprimidos.
+cambios de contenido.
 
 **Escala tipográfica fluida.** Los tamaños interpolan con el ancho de la
 ventana usando `clamp()`, en vez de saltar en los puntos de ruptura.
 
-**Los contrastes los verifica un test.** `test/tokens.test.js` calcula el
-contraste de cada par de la paleta y falla si alguno baja del mínimo de
-WCAG. Existe porque el borde de los botones estuvo a 1,56:1 —la norma
+**Los contrastes los verifica un test.** `test/tokens.test.js` lee
+`src/styles/tokens.css` —el mismo archivo que carga el navegador, no una
+copia— calcula el contraste de cada par y falla si alguno baja del mínimo
+de WCAG. Existe porque el borde de los botones estuvo a 1,56:1 —la norma
 pide 3:1 para un contorno interactivo— y no lo detectó nadie hasta
 medirlo a mano. El resto de tests cubren lo que se rompe en silencio: un
 solo `h1` por página, la lista de definiciones del hero con sus pares
@@ -83,10 +96,10 @@ navegación. En cada push corren linter, tests y build.
 - El contacto son enlaces, no un formulario.
 - 136 kB siguen siendo muchos para seis páginas que son casi todo texto.
   Es el precio de la librería de componentes, y se puede bajar.
-- Los tests cubren tokens y marcado, no comportamiento: nadie comprueba
-  todavía que el menú del móvil abra y cierre.
+- Los 78 kB son casi todos React. Bajar de ahí sería salirse de React, y
+  eso ya no es optimizar: es cambiar de herramienta.
 
 ## Stack
 
-React 19 · Vite 6 · MUI 6 · React Router 7 · react-helmet-async ·
-Vitest y Testing Library · Archivo, Inter y JetBrains Mono
+React 19 · Vite 6 · React Router 7 · Vitest y Testing Library ·
+CSS a mano · Archivo, Inter y JetBrains Mono

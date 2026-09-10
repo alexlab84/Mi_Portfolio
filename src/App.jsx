@@ -1,29 +1,30 @@
-import { lazy, Suspense } from "react";
+import { Suspense, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import { Box } from "@mui/material";
 
 import Navbar from "./components/NavBar.jsx";
-import ScrollToTop from "./components/ScrollToTop.jsx";
 import Footer from "./components/Footer.jsx";
+import ScrollToTop from "./components/ScrollToTop.jsx";
 import Home from "./pages/Home.jsx";
+import { lazyPage, limpiarMarcaDeRecarga } from "./lazyPage";
 
-// La home entra en el bundle inicial; el resto se carga al navegar.
-const About = lazy(() => import("./pages/About.jsx"));
-const Projects = lazy(() => import("./pages/Projects.jsx"));
-const CaseLucio = lazy(() => import("./pages/CaseLucio.jsx"));
-const Experience = lazy(() => import("./pages/Experience.jsx"));
-const Contact = lazy(() => import("./pages/Contact.jsx"));
-const Colofon = lazy(() => import("./pages/Colofon.jsx"));
-const NotFound = lazy(() => import("./pages/NotFound.jsx"));
+// La portada entra en el paquete inicial; el resto se descarga al navegar.
+const About = lazyPage(() => import("./pages/About.jsx"));
+const Projects = lazyPage(() => import("./pages/Projects.jsx"));
+const CaseLucio = lazyPage(() => import("./pages/CaseLucio.jsx"));
+const Experience = lazyPage(() => import("./pages/Experience.jsx"));
+const Contact = lazyPage(() => import("./pages/Contact.jsx"));
+const Colofon = lazyPage(() => import("./pages/Colofon.jsx"));
+const NotFound = lazyPage(() => import("./pages/NotFound.jsx"));
 
 function App() {
+  // Si llegamos hasta aquí, la aplicación ha arrancado bien.
+  useEffect(limpiarMarcaDeRecarga, []);
+
   return (
-    <HelmetProvider>
-      <Router>
+    <Router>
         <ScrollToTop />
         <Navbar />
-        <Suspense fallback={<Box sx={{ minHeight: "100vh" }} />}>
+        <Suspense fallback={<div style={{ minHeight: "100vh" }} />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/about" element={<About />} />
@@ -36,8 +37,7 @@ function App() {
           </Routes>
         </Suspense>
         <Footer />
-      </Router>
-    </HelmetProvider>
+    </Router>
   );
 }
 

@@ -16,9 +16,11 @@ export default defineConfig({
       output: {
         // Separa las dependencias del código propio: al publicar cambios
         // de contenido, el navegador reutiliza el vendor ya cacheado.
-        manualChunks: {
-          react: ['react', 'react-dom', 'react-router-dom'],
-          mui: ['@mui/material', '@mui/icons-material'],
+        // Por nombre no funciona: el punto de entrada real es
+        // react-dom/client y no lo captura. Con una función, todo lo que
+        // venga de node_modules va a un único bloque cacheable.
+        manualChunks(id) {
+          if (id.includes('node_modules')) return 'vendor'
         },
       },
     },

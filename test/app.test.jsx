@@ -1,9 +1,6 @@
 import { describe, it, expect, beforeAll } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { MemoryRouter } from "react-router-dom";
-import { HelmetProvider } from "react-helmet-async";
-import { ThemeProvider } from "@mui/material/styles";
-import theme from "../src/theme";
 import Home from "../src/pages/Home";
 import NotFound from "../src/pages/NotFound";
 import CaseLucio from "../src/pages/CaseLucio";
@@ -15,13 +12,7 @@ beforeAll(() => {
 });
 
 function montar(ui, ruta = "/") {
-  return render(
-    <HelmetProvider>
-      <ThemeProvider theme={theme}>
-        <MemoryRouter initialEntries={[ruta]}>{ui}</MemoryRouter>
-      </ThemeProvider>
-    </HelmetProvider>
-  );
+  return render(<MemoryRouter initialEntries={[ruta]}>{ui}</MemoryRouter>);
 }
 
 describe("portada", () => {
