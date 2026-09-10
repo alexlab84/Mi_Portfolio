@@ -1,12 +1,9 @@
-import { Helmet } from "react-helmet-async";
+import { useHead } from "../useHead";
 import { Link } from "react-router-dom";
-import { Box, Container, Typography, Button, Stack } from "@mui/material";
-import { color, font, size } from "../tokens";
+import { reveal } from "../reveal";
 import cover from "../assets/luciojm.webp";
 
-const reveal = (i = 0) => ({ className: "reveal", style: { "--delay": `${i * 70}ms` } });
-
-const meta = [
+const ficha = [
   ["Cliente", "Lucio J&M — telas desde 1872. Madrid."],
   ["Puesto", "Responsable de e-commerce. Media jornada, mañanas."],
   ["Desde", "9 de diciembre de 2025"],
@@ -14,16 +11,16 @@ const meta = [
   ["Herramientas", "Claude Code vía MCP · APIs REST · Search Console · Analytics"],
 ];
 
-const before = [
+const antes = [
   "La tienda online no vendía.",
   "No había una sola página indexada en Google.",
   "El catálogo estaba sin montar.",
 ];
 
-const figures = [
-  { n: "1.400", label: "páginas indexadas", foot: "Partiendo de cero." },
-  { n: "272.000", label: "impresiones", foot: "En búsqueda, últimos 16 meses." },
-  { n: "1.109", label: "fichas de producto", foot: "Montadas una a una, en 41 categorías." },
+const cifras = [
+  { n: "1.400", label: "páginas indexadas", cap: "Partiendo de cero." },
+  { n: "272.000", label: "impresiones", cap: "En búsqueda, últimos 16 meses." },
+  { n: "1.109", label: "fichas de producto", cap: "Montadas una a una, en 41 categorías." },
 ];
 
 const psi = [
@@ -33,346 +30,207 @@ const psi = [
   { n: "0,002", label: "CLS" },
 ];
 
-/**
- * Impresiones de búsqueda, may 2025 – sep 2026 (Search Console).
- * Los siete primeros meses son anteriores a mi entrada: sirven de línea base.
- */
-const curve = [3, 3, 2, 2, 2, 2, 2, 2, 4, 8, 18, 38, 45, 55, 72, 88, 95];
-const START_INDEX = 7; // diciembre de 2025
+const trabajo = [
+  ["Catálogo", "Monté las 1.109 fichas de producto y sus 41 categorías. Vender tela no funciona como vender una unidad: el corte es a medida, así que el producto tiene que entender de longitudes y no de cantidades. La ficha resuelve las tres fricciones de comprar tela sin verla: cuántos metros necesitas, no poder tocarla, y que un corte a medida no tiene vuelta atrás."],
+  ["Visibilidad", "SEO técnico sobre un catálogo con navegación facetada, que es donde se atasca casi todo e-commerce grande: los filtros generan miles de URLs casi idénticas que se comen el presupuesto de rastreo. Dejé los filtros rastreables pero con noindex —para que Google pueda leer la etiqueta y desindexarlos de verdad, en lugar de bloquearlos en robots.txt y que se queden dentro— y fuera del índice los parámetros de atributos y de carrito. Hoy hay 1.400 páginas dentro del índice y 5.343 URLs de filtros deliberadamente fuera."],
+  ["Contenido", "Un blog con intención de compra, no de relleno: comparativas del tipo «lino o algodón», «terciopelo o chenilla», «lino natural frente a antimanchas según tu presupuesto». Y una guía para medir cuántos metros necesitas para unas cortinas, que lleva justo a la ficha donde puedes comprar esos metros exactos."],
+  ["Diseño", "Toda la capa visual que se ve hoy: estilos, plantillas y maquetación."],
+  ["Rendimiento y medición", "PageSpeed, Analytics y revisión de plugins. Los informes de laboratorio varían entre ejecuciones, así que mido tres veces antes de dar un número por bueno. Deformación profesional de dieciocho años de laboratorio."],
+  ["Herramientas propias", "Trabajo con Claude conectado al WordPress de la tienda por MCP: contenido, auditorías de SEO, schema, rendimiento y caché contra el sitio real, más integraciones por API. Las tareas que repito quedan guardadas, así que cada semana cuesta menos que la anterior."],
+];
+
+/** Impresiones de búsqueda, may 2025 – sep 2026 (Search Console). */
+const curva = [3, 3, 2, 2, 2, 2, 2, 2, 4, 8, 18, 38, 45, 55, 72, 88, 95];
+const ENTRADA = 7; // diciembre de 2025
 
 function Curva() {
-  const W = 800, H = 200, PAD_X = 40, TOP = 24, BOTTOM = 172;
-  const step = (W - PAD_X * 2) / (curve.length - 1);
-  const pt = (v, i) => [
-    +(PAD_X + i * step).toFixed(1),
-    +(BOTTOM - (v / 100) * (BOTTOM - TOP)).toFixed(1),
-  ];
-  const points = curve.map(pt);
-  const line = points.map(([x, y]) => `${x},${y}`).join(" ");
-  const area = `M${points[0][0]},${BOTTOM} L${line.replace(/ /g, " L")} L${points.at(-1)[0]},${BOTTOM} Z`;
-  const markX = points[START_INDEX][0];
+  const W = 800, TOP = 24, BASE = 172, PAD = 40;
+  const paso = (W - PAD * 2) / (curva.length - 1);
+  const pts = curva.map((v, i) => [
+    +(PAD + i * paso).toFixed(1),
+    +(BASE - (v / 100) * (BASE - TOP)).toFixed(1),
+  ]);
+  const linea = pts.map(([x, y]) => `${x},${y}`).join(" ");
+  const area = `M${pts[0][0]},${BASE} L${linea.replaceAll(" ", " L")} L${pts.at(-1)[0]},${BASE} Z`;
+  const mx = pts[ENTRADA][0];
 
   return (
-    <Box sx={{ mt: 5, overflowX: "auto" }}>
-      <Box
-        component="svg"
-        viewBox={`0 0 ${W} ${H}`}
+    <div style={{ marginBlockStart: "2.5rem", overflowX: "auto" }}>
+      <svg
+        viewBox={`0 0 ${W} 200`}
         role="img"
         aria-label="Impresiones de búsqueda de mayo de 2025 a septiembre de 2026: siete meses planos y casi a cero antes de diciembre de 2025, y una subida sostenida a partir de febrero de 2026 hasta multiplicarse por más de veinte."
-        sx={{ display: "block", width: "100%", minWidth: 560, height: "auto" }}
+        style={{ width: "100%", minWidth: 560, height: "auto" }}
       >
-        <line x1={PAD_X} y1={BOTTOM} x2={W - PAD_X} y2={BOTTOM} stroke={color.line} strokeWidth="1" />
-        <path d={area} fill={color.accentWash} />
-        <polyline points={line} fill="none" stroke={color.accent} strokeWidth="2.5"
+        <line x1={PAD} y1={BASE} x2={W - PAD} y2={BASE} stroke="var(--line)" strokeWidth="1" />
+        <path d={area} fill="var(--accent-wash)" />
+        <polyline points={linea} fill="none" stroke="var(--accent)" strokeWidth="2.5"
           strokeLinejoin="round" strokeLinecap="round" />
-        {/* Marca de entrada */}
-        <line x1={markX} y1={TOP - 6} x2={markX} y2={BOTTOM} stroke={color.ink}
-          strokeWidth="1" strokeDasharray="3 4" opacity="0.5" />
-        <circle cx={markX} cy={points[START_INDEX][1]} r="4" fill={color.ink} />
-        <text x={markX + 10} y={TOP + 6} fill={color.ink} fontSize="13"
-          fontFamily={font.mono} letterSpacing="0.06em">
+        <line x1={mx} y1={TOP - 6} x2={mx} y2={BASE} stroke="var(--ink)" strokeWidth="1"
+          strokeDasharray="3 4" opacity="0.5" />
+        <circle cx={mx} cy={pts[ENTRADA][1]} r="4" fill="var(--ink)" />
+        <text x={mx + 10} y={TOP + 6} fill="var(--ink)" fontSize="13"
+          fontFamily="var(--font-mono)" letterSpacing="0.06em">
           Entro aquí — dic 2025
         </text>
-      </Box>
-      <Box sx={{ display: "flex", justifyContent: "space-between", mt: 1.5, px: 1, minWidth: 560 }}>
+      </svg>
+      <div style={{ display: "flex", justifyContent: "space-between", minWidth: 560, marginBlockStart: "0.75rem" }}>
         {["may 2025", "dic 2025", "sep 2026"].map((t) => (
-          <Typography key={t} sx={{ fontFamily: font.mono, fontSize: size.label, color: color.inkMuted }}>
-            {t}
-          </Typography>
+          <span className="mono muted" key={t}>{t}</span>
         ))}
-      </Box>
-    </Box>
+      </div>
+    </div>
   );
 }
 
-const work = [
-  {
-    area: "Catálogo",
-    body: "Monté las 1.109 fichas de producto y sus 41 categorías. Vender tela no funciona como vender una unidad: el corte es a medida, así que el producto tiene que entender de longitudes y no de cantidades. La ficha resuelve las tres fricciones de comprar tela sin verla: cuántos metros necesitas, no poder tocarla, y que un corte a medida no tiene vuelta atrás.",
-  },
-  {
-    area: "Visibilidad",
-    body: "SEO técnico sobre un catálogo con navegación facetada, que es donde se atasca casi todo e-commerce grande: los filtros generan miles de URLs casi idénticas que se comen el presupuesto de rastreo. Dejé los filtros rastreables pero con noindex —para que Google pueda leer la etiqueta y desindexarlos de verdad, en lugar de bloquearlos en robots.txt y que se queden dentro— y fuera del índice los parámetros de atributos y de carrito. Más Search Console y Google Merchant Center. Hoy hay 1.400 páginas dentro del índice y 5.343 URLs de filtros deliberadamente fuera.",
-  },
-  {
-    area: "Contenido",
-    body: "Un blog con intención de compra, no de relleno: comparativas del tipo «lino o algodón», «terciopelo o chenilla», «lino natural frente a antimanchas según tu presupuesto». Y una guía para medir cuántos metros necesitas para unas cortinas, que lleva justo a la ficha donde puedes comprar esos metros exactos.",
-  },
-  {
-    area: "Diseño",
-    body: "Toda la capa visual que se ve hoy: estilos, plantillas y maquetación.",
-  },
-  {
-    area: "Rendimiento y medición",
-    body: "PageSpeed, Analytics y revisión de plugins. Los informes de laboratorio varían entre ejecuciones, así que mido tres veces antes de dar un número por bueno. Deformación profesional de dieciocho años de laboratorio.",
-  },
-  {
-    area: "Herramientas propias",
-    body: "Trabajo con Claude conectado al WordPress de la tienda por MCP: contenido, auditorías de SEO, schema, rendimiento y caché contra el sitio real, más integraciones por API. Las tareas que repito quedan guardadas, así que cada semana cuesta menos que la anterior.",
-  },
-];
-
 export default function CaseLucio() {
+  useHead({
+    title: "Lucio J&M — Caso | Alejandra Sánchez",
+    description:
+      "De 0 páginas indexadas a 1.400: cómo llevé el e-commerce de Lucio J&M, tienda de telas de Madrid abierta en 1872. Catálogo, venta por metros sobre WooCommerce, SEO técnico y rendimiento.",
+    canonical: "https://www.alejandrasanchezdev.es/projects/lucio-jm",
+  });
+
   return (
-    <Box component="main" sx={{ pt: { xs: 13, md: 18 }, pb: { xs: 8, md: 14 } }}>
-      <Helmet>
-        <title>Lucio J&M — Caso | Alejandra Sánchez</title>
-        <meta
-          name="description"
-          content="De 0 páginas indexadas a 1.400: cómo llevé el e-commerce de Lucio J&M, tienda de telas de Madrid abierta en 1872. Catálogo, venta por metros sobre WooCommerce, SEO técnico y rendimiento."
-        />
-        <link rel="canonical" href="https://www.alejandrasanchezdev.es/projects/lucio-jm" />
-      </Helmet>
+    <main className="page">
 
-      <Container>
-        <div {...reveal(0)}>
-          <Typography variant="overline" component="p" sx={{ color: color.inkMuted, mb: 3 }}>
-            Caso · E-commerce
-          </Typography>
-        </div>
+      <div className="container">
+        <p {...reveal(0, "kicker")}>Caso · E-commerce</p>
+        <h1 {...reveal(1, "display")} style={{ marginBlockStart: "0.7rem", maxWidth: "15ch" }}>
+          De 0 páginas indexadas a <span className="accent">1.400</span>.
+        </h1>
+        <p {...reveal(2, "lead")} style={{ marginBlockStart: "1.75rem", maxWidth: "58ch" }}>
+          Lucio J&amp;M lleva 154 años vendiendo telas al lado de la Plaza Mayor. Es la tienda de
+          telas más antigua de España. Cuando entré, su web existía pero Google no la conocía.
+        </p>
+      </div>
 
-        <div {...reveal(1)}>
-          <Typography variant="h1" component="h1" sx={{ color: color.ink, maxWidth: "15ch" }}>
-            De 0 páginas indexadas a{" "}
-            <Box component="span" sx={{ color: color.accent }}>1.400</Box>.
-          </Typography>
-        </div>
-
-        <div {...reveal(2)}>
-          <Typography
-            sx={{ mt: 4, maxWidth: "58ch", fontSize: size.lead, lineHeight: 1.55, color: color.inkMuted }}
-          >
-            Lucio J&amp;M lleva 154 años vendiendo telas al lado de la Plaza Mayor. Es la tienda de
-            telas más antigua de España. Cuando entré, su web existía pero Google no la conocía.
-          </Typography>
-        </div>
-      </Container>
-
-      <Box {...reveal(3)} sx={{ mt: { xs: 6, md: 9 }, mb: { xs: 6, md: 10 }, px: { xs: 0, md: 3 } }}>
-        <Box
-          component="img"
+      <div {...reveal(3)} style={{ marginBlock: "clamp(2rem,1.5rem+3vw,4rem)" }}>
+        <img
           src={cover}
-          alt="Portada de la tienda online de Lucio J&M, con el lema «Telas auténticas, calidad y tradición desde 1872»"
           width={1016}
           height={697}
-          sx={{
-            display: "block", width: "100%", height: { xs: 240, md: 460 },
-            objectFit: "cover", objectPosition: "top", border: `1px solid ${color.line}`,
+          alt="Portada de la tienda online de Lucio J&M, con el lema «Telas auténticas, calidad y tradición desde 1872»"
+          style={{
+            width: "100%", height: "clamp(240px, 30vw, 460px)",
+            objectFit: "cover", objectPosition: "top", borderBlock: "1px solid var(--line)",
           }}
         />
-      </Box>
+      </div>
 
-      <Container>
-        {/* ── Ficha ── */}
-        <Box component="dl" {...reveal(4)} sx={{ m: 0, borderTop: `1px solid ${color.line}` }}>
-          {meta.map(([term, value]) => (
-            <Box key={term} sx={{
-              display: "grid", gridTemplateColumns: { xs: "1fr", sm: "170px 1fr" },
-              gap: { xs: 0.5, sm: 3 }, py: 2.5, borderBottom: `1px solid ${color.line}`,
-            }}>
-              <Typography component="dt" variant="overline" sx={{ color: color.inkMuted, pt: 0.5 }}>
-                {term}
-              </Typography>
-              <Typography component="dd" sx={{ m: 0, color: color.ink, fontSize: size.body }}>
-                {value}
-              </Typography>
-            </Box>
+      <div className="container">
+        <dl {...reveal(0, "spec")}>
+          {ficha.map(([t, v]) => (
+            <div className="spec__row" key={t}>
+              <dt className="kicker">{t}</dt>
+              <dd>{v}</dd>
+            </div>
           ))}
-        </Box>
+        </dl>
 
-        {/* ── Cuando llegué ── */}
-        <Box component="section" sx={{ mt: { xs: 8, md: 12 } }}>
-          <div {...reveal(0)}>
-            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 4 }}>
-              Cuando llegué
-            </Typography>
-          </div>
-          {before.map((line, i) => (
-            <Box key={line} {...reveal(i + 1)} sx={{
-              py: { xs: 2.5, md: 3 }, borderBottom: `1px solid ${color.line}`,
-              display: "flex", gap: { xs: 2, md: 4 }, alignItems: "baseline",
-            }}>
-              <Typography component="span" sx={{
-                fontFamily: font.mono, fontSize: size.label, color: color.accent, flexShrink: 0,
-              }}>
-                0{i + 1}
-              </Typography>
-              <Typography sx={{
-                fontFamily: font.display, fontWeight: 600, letterSpacing: "-0.02em",
-                fontSize: size.h3, lineHeight: 1.3, color: color.ink,
-              }}>
-                {line}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
-
-        {/* ── Los números ── */}
-        <Box component="section" sx={{ mt: { xs: 8, md: 12 } }}>
-          <div {...reveal(0)}>
-            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 1 }}>
-              Nueve meses después
-            </Typography>
-          </div>
-
-          <Box sx={{
-            display: "grid", gridTemplateColumns: { xs: "1fr", sm: "repeat(3, 1fr)" },
-            borderTop: `1px solid ${color.line}`, mt: 3,
-          }}>
-            {figures.map((f, i) => (
-              <Box key={f.label} {...reveal(i + 1)} sx={{
-                py: { xs: 4, md: 5 }, pr: { sm: 3 },
-                borderBottom: { xs: `1px solid ${color.line}`, sm: "none" },
-              }}>
-                <Typography component="p" sx={{
-                  fontFamily: font.display, fontWeight: 800,
-                  fontVariantNumeric: "lining-nums tabular-nums",
-                  fontSize: "clamp(2.5rem, 1.4rem + 3.6vw, 3.75rem)",
-                  lineHeight: 1, letterSpacing: "-0.04em", color: color.ink,
-                }}>
-                  {f.n}
-                </Typography>
-                <Typography sx={{
-                  mt: 1.5, fontFamily: font.mono, fontSize: size.label,
-                  letterSpacing: "0.1em", textTransform: "uppercase", color: color.accent,
-                }}>
-                  {f.label}
-                </Typography>
-                <Typography sx={{ mt: 1, maxWidth: "26ch", fontSize: size.small, color: color.inkMuted }}>
-                  {f.foot}
-                </Typography>
-              </Box>
+        <section className="section">
+          <h2 {...reveal(0, "kicker")}>Cuando llegué</h2>
+          <div style={{ marginBlockStart: "1.75rem" }}>
+            {antes.map((linea, i) => (
+              <div
+                key={linea}
+                {...reveal(i + 1)}
+                style={{
+                  display: "flex", gap: "1.5rem", alignItems: "baseline",
+                  paddingBlock: "1.1rem", borderBottom: "1px solid var(--line)",
+                }}
+              >
+                <span className="mono accent">0{i + 1}</span>
+                <p className="h3" style={{ lineHeight: 1.3 }}>{linea}</p>
+              </div>
             ))}
-          </Box>
+          </div>
+        </section>
 
+        <section className="section">
+          <h2 {...reveal(0, "kicker")}>Nueve meses después</h2>
+          <div className="figures" style={{ marginBlockStart: "1.25rem" }}>
+            {cifras.map((c, i) => (
+              <div key={c.n} {...reveal(i + 1, "figure")}>
+                <p className="figure__n" style={{ fontSize: "clamp(2.5rem,1.4rem + 3.6vw,3.75rem)" }}>
+                  {c.n}
+                </p>
+                <p className="figure__label">{c.label}</p>
+                <p className="figure__cap">{c.cap}</p>
+              </div>
+            ))}
+          </div>
           <div {...reveal(4)}>
             <Curva />
-            <Typography sx={{ mt: 3, maxWidth: "58ch", fontSize: size.small, color: color.inkMuted }}>
+            <p className="small muted" style={{ marginBlockStart: "1.25rem", maxWidth: "58ch" }}>
               Los siete primeros meses del gráfico son anteriores a mi entrada. Sirven de línea base:
-              la curva no se mueve. Empieza a levantar unos dos meses después de empezar yo, que es
-              lo que tarda Google en asimilar un cambio técnico.
-            </Typography>
+              la curva no se mueve. Empieza a levantar unos dos meses después de empezar yo, que es lo
+              que tarda Google en asimilar un cambio técnico.
+            </p>
           </div>
-        </Box>
+        </section>
 
-        {/* ── La calculadora: la pieza técnica del proyecto ── */}
-        <Box component="section" {...reveal(1)} sx={{
-          mt: { xs: 8, md: 12 }, py: { xs: 5, md: 7 }, px: { xs: 3.5, md: 6 },
-          backgroundColor: color.inkBlock, color: color.onInk,
-        }}>
-          <Typography variant="overline" component="h2" sx={{ color: color.onInkMuted, mb: 3 }}>
-            El problema que más me gustó
-          </Typography>
-          <Typography sx={{
-            fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.03em",
-            fontSize: size.h2, lineHeight: 1.08, maxWidth: "22ch",
-          }}>
-            WooCommerce no sabe vender 0,7 metros.
-          </Typography>
-          <Typography sx={{ mt: 3, maxWidth: "62ch", color: color.onInkMuted, fontSize: size.body }}>
-            El campo de cantidad es un entero por diseño: una unidad, dos, tres. Pero la tela se
-            corta a medida, con un mínimo de medio metro y en incrementos de diez centímetros.
-          </Typography>
-          <Typography sx={{ mt: 2.5, maxWidth: "62ch", color: color.onInkMuted, fontSize: size.body }}>
-            Así que hice que los aceptara: el campo con su mínimo y su paso, la validación de stock
-            —que redondeaba a entero y convertía 0,7 en cero, agotando el producto sola—, el precio
-            por metro multiplicado por la fracción y arrastrado hasta el pedido, el inventario en
-            decimales y el redondeo, porque sumar de 0,1 en 0,1 en coma flotante da los disgustos de
-            siempre.
-          </Typography>
-          <Typography sx={{ mt: 2.5, maxWidth: "62ch", color: color.onInk, fontSize: size.body }}>
-            En resumen: una plataforma que solo entiende unidades enteras vendiendo materia continua.
-          </Typography>
-        </Box>
-
-        {/* ── El trabajo ── */}
-        <Box component="section" sx={{ mt: { xs: 8, md: 12 } }}>
-          <div {...reveal(0)}>
-            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 1 }}>
-              Lo que he hecho
-            </Typography>
+        <section {...reveal(1, "block section")}>
+          <h2 className="kicker">Lo que tuve que construir</h2>
+          <p className="h2" style={{ marginBlockStart: "1.25rem", maxWidth: "24ch" }}>
+            El carrito solo dejaba comprar de uno en uno.
+          </p>
+          <div className="stack-md muted" style={{ marginBlockStart: "1.25rem", maxWidth: "62ch" }}>
+            <p>
+              WooCommerce cuenta artículos: uno, dos, tres. Nosotros vendemos tela por metros y el
+              corte es a medida, así que hacía falta otra cosa: un mínimo de medio metro y, de ahí
+              para arriba, de diez en diez centímetros.
+            </p>
+            <p style={{ color: "var(--on-ink)" }}>
+              Eso no venía hecho. Lo tuve que hacer yo para que cuadrara con cómo trabajamos: una
+              calculadora en la ficha que te deja pedir los metros que necesitas y te va diciendo lo
+              que cuesta antes de añadirlo al carrito.
+            </p>
           </div>
-          {work.map((item, i) => (
-            <Box key={item.area} {...reveal(i + 1)} sx={{
-              display: "grid", gridTemplateColumns: { xs: "1fr", md: "260px 1fr" },
-              gap: { xs: 1.5, md: 5 }, py: { xs: 3.5, md: 4.5 },
-              borderTop: `1px solid ${color.line}`,
-            }}>
-              <Typography component="h3" sx={{
-                fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.02em",
-                fontSize: size.h3, color: color.ink, lineHeight: 1.2,
-              }}>
-                {item.area}
-              </Typography>
-              <Typography sx={{ color: color.inkMuted, fontSize: size.body, maxWidth: "64ch" }}>
-                {item.body}
-              </Typography>
-            </Box>
-          ))}
-        </Box>
+        </section>
 
-        {/* ── PageSpeed ── */}
-        <Box component="section" sx={{ mt: { xs: 8, md: 12 } }}>
-          <div {...reveal(0)}>
-            <Typography variant="overline" component="h2" sx={{ color: color.inkMuted, mb: 1 }}>
-              PageSpeed, móvil
-            </Typography>
-          </div>
-          <Box sx={{
-            display: "grid", gridTemplateColumns: { xs: "repeat(2, 1fr)", md: "repeat(4, 1fr)" },
-            borderTop: `1px solid ${color.line}`, mt: 3,
-          }}>
-            {psi.map((s, i) => (
-              <Box key={s.label} {...reveal(i + 1)} sx={{ py: { xs: 3.5, md: 4.5 }, pr: 2 }}>
-                <Typography component="p" sx={{
-                  fontFamily: font.display, fontWeight: 800,
-                  fontVariantNumeric: "lining-nums tabular-nums",
-                  fontSize: "clamp(2rem, 1.4rem + 2vw, 2.75rem)",
-                  lineHeight: 1, letterSpacing: "-0.03em", color: color.ink,
-                }}>
-                  {s.n}
-                </Typography>
-                <Typography sx={{
-                  mt: 1.2, fontFamily: font.mono, fontSize: size.label,
-                  letterSpacing: "0.08em", textTransform: "uppercase", color: color.inkMuted,
-                }}>
-                  {s.label}
-                </Typography>
-              </Box>
+        <section className="section">
+          <h2 {...reveal(0, "kicker")}>Lo que he hecho</h2>
+          <div className="rows" style={{ marginBlockStart: "0.5rem" }}>
+            {trabajo.map(([area, texto], i) => (
+              <div className="row" key={area} {...reveal(i + 1)}>
+                <h3 className="h3">{area}</h3>
+                <p className="row__body">{texto}</p>
+              </div>
             ))}
-          </Box>
-          <Typography sx={{ mt: 2, maxWidth: "60ch", fontSize: size.small, color: color.inkMuted }}>
+          </div>
+        </section>
+
+        <section className="section">
+          <h2 {...reveal(0, "kicker")}>PageSpeed, móvil</h2>
+          <div className="figures figures--four" style={{ marginBlockStart: "1.25rem" }}>
+            {psi.map((s, i) => (
+              <div key={s.label} {...reveal(i + 1, "figure figure--sm")}>
+                <p className="figure__n">{s.n}</p>
+                <p className="figure__label" style={{ color: "var(--ink-muted)" }}>{s.label}</p>
+              </div>
+            ))}
+          </div>
+          <p className="small muted" style={{ marginBlockStart: "1rem", maxWidth: "60ch" }}>
             Rendimiento, 74. Es el que queda por subir y sé dónde está: imágenes y dependencias de
             terceros, no JavaScript bloqueando.
-          </Typography>
-        </Box>
+          </p>
+        </section>
 
-        {/* ── Cierre ── */}
-        <Box {...reveal(1)} sx={{
-          mt: { xs: 8, md: 12 }, py: { xs: 5, md: 7 }, px: { xs: 3.5, md: 6 },
-          border: `1px solid ${color.line}`,
-        }}>
-          <Typography sx={{
-            fontFamily: font.display, fontWeight: 700, letterSpacing: "-0.03em",
-            fontSize: size.h2, lineHeight: 1.08, maxWidth: "20ch", color: color.ink,
-          }}>
-            Nueve meses. Media jornada.
-          </Typography>
-          <Typography sx={{ mt: 3, maxWidth: "56ch", color: color.inkMuted, fontSize: size.body }}>
+        <section {...reveal(1, "section")} style={{ border: "1px solid var(--line)", padding: "clamp(1.75rem,1rem + 3vw,3.25rem) clamp(1.25rem,0.75rem + 2.5vw,3rem)" }}>
+          <p className="h2" style={{ maxWidth: "20ch" }}>Nueve meses. Media jornada.</p>
+          <p className="muted" style={{ marginBlockStart: "1.25rem", maxWidth: "56ch" }}>
             No es una tienda que rehiciera de cero: es una que llevaba 154 años funcionando y a la
             que había que ponerle la parte de internet. Sigo en ello cada mañana.
-          </Typography>
-          <Stack direction="row" spacing={1.5} sx={{ mt: 4, flexWrap: "wrap", gap: 1.5 }}>
-            <Button href="https://www.luciojm.es" target="_blank" rel="noopener noreferrer"
-              variant="contained" color="primary">
+          </p>
+          <div className="cluster" style={{ marginBlockStart: "1.75rem" }}>
+            <a className="btn btn--solid" href="https://www.luciojm.es" target="_blank" rel="noopener noreferrer">
               Ver la tienda
-            </Button>
-            <Button component={Link} to="/projects" variant="outlined" color="primary">
-              Resto del trabajo
-            </Button>
-          </Stack>
-        </Box>
-      </Container>
-    </Box>
+            </a>
+            <Link className="btn btn--outline" to="/projects">Resto del trabajo</Link>
+          </div>
+        </section>
+      </div>
+    </main>
   );
 }
